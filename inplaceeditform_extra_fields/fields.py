@@ -1,7 +1,9 @@
 from django.conf import settings
 from django.template.loader import render_to_string
 
-from inplaceeditform.fields import AdaptorForeingKeyField, AdaptorCommaSeparatedManyToManyField
+from inplaceeditform.fields import (AdaptorForeingKeyField,
+                                    AdaptorCommaSeparatedManyToManyField,
+                                    AdaptorImageField)
 
 
 class AdaptorAutoCompleteProvider(object):
@@ -23,7 +25,7 @@ class AdaptorAutoCompleteProvider(object):
         return field
 
     def render_media_field(self,
-            template_name="inplaceeditform_extra_fields/autocomplete/render_media_field.html",
+            template_name="inplaceeditform_extra_fields/adaptor_autocomplete/render_media_field.html",
             extra_context=None):
         if self.install_ajax_select():
             return super(AdaptorAutoCompleteProvider, self).render_media_field(template_name, extra_context)
@@ -33,7 +35,7 @@ class AdaptorAutoCompleteProvider(object):
     def render_value_edit(self):
         value = super(AdaptorAutoCompleteProvider, self).render_value_edit()
         if self.install_ajax_select():
-            return render_to_string('inplaceeditform_extra_fields/autocomplete/render_value.html',
+            return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value.html',
                                     {'value': value,
                                     'MEDIA_URL': settings.MEDIA_URL,
                                     'is_ajax': self.request.is_ajax()})
@@ -71,3 +73,20 @@ class AdaptorAutoCompleteManyToManyField(AdaptorAutoCompleteProvider, AdaptorCom
 
     def get_value_editor(self, value):
         return [pk for pk in value.split("|") if pk]
+
+
+class AdaptorImageThumbnailField(AdaptorImageField):
+
+    # code of: http://dev.merengueproject.org/browser/trunk/merengueproj/merengue/uitools/fields.py?rev=5352#L59
+
+    def install_sorl_thumbnail(self):
+        if 'sorl.thumbnail' in settings.INSTALLED_APPS:
+            return True
+        return False
+
+    def render_value(self,
+                    field_name=None,
+                    template_name='inplaceeditform_extra_fields/adaptor_image_thumb/render_value.html'):
+        if self.install_sorl_thumbnail():
+            return super(AdaptorImageThumbnailField, self).render_value(field_name=field_name, template_name=template_name)
+        return super(AdaptorImageThumbnailField, self).render_value(field_name=field_name)

@@ -1,0 +1,9 @@
+{% load inplace_edit thumbnail %}
+
+{% if size %}
+    A{% thumbnail value size as thumb %}B
+        <img src="{{ thumb.url }}" {% eval %}{% if title %}title="{{ title }}"{% endif %} {% if alt %}alt="{{ alt }}"{% endif %}{% endeval %} />C
+    {% endthumbnail %}D
+{% else %}
+    <img src="{{ value.url }}" {% eval %}{% if title %}title="{{ title }}"{% endif %} {% if alt %}alt="{{ alt }}"{% endif %}{% endeval %} />
+{% endif %}
