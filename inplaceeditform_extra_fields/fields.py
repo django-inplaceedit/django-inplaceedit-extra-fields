@@ -14,15 +14,18 @@ class AdaptorAutoCompleteProvider(object):
             field.field = self.auto_complete_field(lookup, required=field.field.required)
         return field
 
-    def render_media_field(self, template_name="inplaceeditform_extra_fields/autocomplete/render_media_field.html", extra_context=None):
+    def render_media_field(self,
+            template_name="inplaceeditform_extra_fields/autocomplete/render_media_field.html",
+            extra_context=None):
         return super(AdaptorAutoCompleteProvider, self).render_media_field(template_name, extra_context)
 
 
     def render_value_edit(self):
         value = super(AdaptorAutoCompleteProvider, self).render_value_edit()
-        return render_to_string('inplaceeditform_extra_fields/autocomplete/render_value.html', {'value': value,
-                                                                                                'MEDIA_URL': settings.MEDIA_URL,
-                                                                                                'is_ajax': self.request.is_ajax()})
+        return render_to_string('inplaceeditform_extra_fields/autocomplete/render_value.html',
+                                {'value': value,
+                                 'MEDIA_URL': settings.MEDIA_URL,
+                                 'is_ajax': self.request.is_ajax()})
 
 
 class AdaptorAutoCompleteForeingKeyField(AdaptorAutoCompleteProvider, AdaptorForeingKeyField):
