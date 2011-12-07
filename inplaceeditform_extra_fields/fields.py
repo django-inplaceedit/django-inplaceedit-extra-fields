@@ -79,9 +79,17 @@ class AdaptorImageThumbnailField(AdaptorImageField):
 
     # code of: http://dev.merengueproject.org/browser/trunk/merengueproj/merengue/uitools/fields.py?rev=5352#L59
 
+    @property
+    def name(self):
+        return 'image_thumb'
+
     def install_sorl_thumbnail(self):
         if 'sorl.thumbnail' in settings.INSTALLED_APPS:
-            return True
+            try:
+                from sorl import thumbnail
+                return True 
+            except ImportError:
+                pass
         return False
 
     def render_value(self,
