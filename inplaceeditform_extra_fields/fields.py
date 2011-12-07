@@ -2,9 +2,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 
 from ajax_select.fields import AutoCompleteSelectMultipleField, AutoCompleteSelectField
-
 from inplaceeditform.fields import AdaptorForeingKeyField, AdaptorCommaSeparatedManyToManyField
-from ajax_select import make_channel
 
 
 class AdaptorAutoCompleteProvider(object):
