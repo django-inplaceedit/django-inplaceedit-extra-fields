@@ -124,6 +124,8 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
+        if not self.install_cmsutils():
+            return field
         tiny_mce_buttons = {
             '0': ['bold', 'italic', 'underline', 'justifyleft',
                   'justifycenter', 'justifyright', 'justifyfull'],
@@ -133,7 +135,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             '4': ['forecolor', 'link', 'code', 'internal_links'],
             '5': ['iframes', 'image', 'file', 'removeformat'],
             }
-
         tiny_mce_selectors = {'0': ['fontsizeselect'],
                               '1': ['formatselect', 'fontselect'],
                               '2': ['styleselect']}
@@ -146,17 +147,15 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         content_css.append("css/editorstyles.css")
         content_css = ','.join(["%s%s" % (settings.MEDIA_URL, css) for css in content_css])
         content_js = [i for i in tiny_extra_media.get('css', [])]
-        extra_mce_settings.update({
-                              'inplace_edit': True,
-                              'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
-                              'file_browser_callback': 'CustomFileBrowser',
-                              'theme_advanced_statusbar_location': "bottom",
-                              'theme_advanced_resizing': True,
-                              'theme_advanced_resize_horizontal': True,
-                              'convert_on_click': True,
-                              'content_css': content_css,
-                              'content_js': content_js,
-                             })
+        extra_mce_settings.update({'inplace_edit': True,
+                                   'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
+                                   'file_browser_callback': 'CustomFileBrowser',
+                                   'theme_advanced_statusbar_location': "bottom",
+                                   'theme_advanced_resizing': True,
+                                   'theme_advanced_resize_horizontal': True,
+                                   'convert_on_click': True,
+                                   'content_css': content_css,
+                                   'content_js': content_js})
         extra_mce_settings.update(self.widget_options)
         from cmsutils.forms.widgets import TinyMCE
         field.field.widget = TinyMCE(extra_mce_settings=extra_mce_settings,
@@ -165,14 +164,18 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def render_value_edit(self):
         value = super(AdaptorTinyMCEField, self).render_value_edit()
-        return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
-                                {'value': value,
-                                 'MEDIA_URL': settings.MEDIA_URL,
-                                 'adaptor': self,
-                                 'is_ajax': self.request.is_ajax()})
+        if self.install_cmsutils():
+            return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
+                                    {'value': value,
+                                    'MEDIA_URL': settings.MEDIA_URL,
+                                    'adaptor': self,
+                                    'is_ajax': self.request.is_ajax()})
+        return value
 
     def render_media_field(self, template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html"):
-        return super(AdaptorTinyMCEField, self).render_media_field(template_name)
+        if self.install_cmsutils():
+            return super(AdaptorTinyMCEField, self).render_media_field(template_name)
+        return super(AdaptorTinyMCEField, self).render_media_field()
 
     def _order_tinymce_buttons(self, buttons_priorized, selectors_priorized,
                                button_width=20, selector_width=80):
