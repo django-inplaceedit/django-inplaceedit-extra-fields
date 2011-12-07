@@ -1,0 +1,9 @@
+{% extends "inplaceeditform/render_media_field.html" %}
+
+{% block media %}
+    {{ block.super }}
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
+    <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
+{% endblock %}
+
