@@ -22,7 +22,13 @@ And other eggs, but it is important: If you want to use one of the fields, you d
 Installation
 ============
 
-After installing `Django Inplace Edit <http://pypi.python.org/pypi/django-inplaceedit/#installation>`_
+After installing `django inplace edit egg`_
+
+
+.. _`django inplace edit egg`: http://pypi.python.org/pypi/django-inplaceedit/#installation
+
+
+
 
 In your settings.py
 -------------------
@@ -35,9 +41,7 @@ In your settings.py
         'django.contrib.sessions',
         'django.contrib.sites',
         'django.contrib.admin',
-
         #.....................#
-
         'inplaceeditform',
         'inplaceeditform_extra_fields',
     )
@@ -74,6 +78,7 @@ Because these fields are not in django-inplaceedit
  * They are a particular solution
  * Theese do not work immediately, you have to code them
 
+
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
@@ -83,7 +88,7 @@ These fields are dependent of `Django Ajax Select <http://pypi.python.org/pypi/d
 
     {% inplace_edit "content.field_name" adaptor="auto_fk", lookup="my_lookup" %}
 
-For more info, visit the `doc of ajax select <https://github.com/twidi/django-ajax-select/blob/master/ajax_select/docs.txt#L101>`_
+For more info, visit the `doc of ajax select <https://github.com/twidi/django-ajax-select/blob/master/ajax_select/docs.txt#L40>`_
 
 AdaptorImageThumbnailField
 ==========================
@@ -100,6 +105,10 @@ It can help you, configure in your settings:
 
     THUMBNAIL_DEBUG = True
 
+
+For more info, visit the `doc of thumbnail <http://thumbnail.sorl.net/>`_
+
+
 AdaptorTinyMCEField
 ===================
 
@@ -109,6 +118,14 @@ This field is dependent of `cmsutils <http://pypi.python.org/pypi/cmsutils>`_.
 
     {% inplace_edit "content.field_name" adaptor="tiny" %}
 
+
+For more info, visit the `doc of cmsutils <http://pypi.python.org/pypi/cmsutils>`_ 
+
+Also you must link or copy the cmsutils/media/ directory in your project media directory
+
+::
+
+  ln -s cmsutils/media /path/to/your/project/media/
 
 Development
 ===========
