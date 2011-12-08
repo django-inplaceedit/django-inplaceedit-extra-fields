@@ -144,7 +144,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
         content_css = [i for i in tiny_extra_media.get('css', [])]
-        content_css.append("css/editorstyles.css")
         content_css = ','.join(["%s%s" % (settings.MEDIA_URL, css) for css in content_css])
         content_js = [i for i in tiny_extra_media.get('css', [])]
         extra_mce_settings.update({'inplace_edit': True,
