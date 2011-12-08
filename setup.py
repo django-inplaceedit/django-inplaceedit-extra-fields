@@ -1,4 +1,5 @@
-# Copyright (c) 2010 by Yaco Sistemas <pmartin@yaco.es>
+# -*- coding: utf-8 -*-
+# Copyright (c) 2011 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
