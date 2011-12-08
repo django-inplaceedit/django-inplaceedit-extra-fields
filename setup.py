@@ -27,7 +27,7 @@ setup(
     author="Pablo Martín",
     author_email="pmartin@yaco.es",
     description="Django application that adds other useful fields to Django inplace edit",
-    long_description=(read('README') + '\n\n' + read('CHANGES')),
+    long_description=(read('README.rst') + '\n\n' + read('CHANGES')),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
