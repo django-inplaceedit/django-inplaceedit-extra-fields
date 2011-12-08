@@ -6,7 +6,7 @@ from inplaceeditform.fields import (AdaptorForeingKeyField,
                                     AdaptorImageField,
                                     AdaptorTextAreaField)
 
-from cmsutils.forms.widgets import TinyMCE
+
 class AdaptorAutoCompleteProvider(object):
 
     def install_ajax_select(self):
@@ -31,7 +31,6 @@ class AdaptorAutoCompleteProvider(object):
         if self.install_ajax_select():
             return super(AdaptorAutoCompleteProvider, self).render_media_field(template_name, extra_context)
         return super(AdaptorAutoCompleteProvider, self).render_media_field()
-
 
     def render_value_edit(self):
         value = super(AdaptorAutoCompleteProvider, self).render_value_edit()
@@ -88,7 +87,7 @@ class AdaptorImageThumbnailField(AdaptorImageField):
         if 'sorl.thumbnail' in settings.INSTALLED_APPS:
             try:
                 from sorl import thumbnail
-                return True 
+                return True
             except ImportError:
                 pass
         return False
@@ -107,7 +106,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     @property
     def name(self):
-        return 'textarea'
+        return 'tiny'
 
     def __init__(self, *args, **kwargs):
         super(AdaptorTinyMCEField, self).__init__(*args, **kwargs)
@@ -117,7 +116,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         if 'cmsutils' in settings.INSTALLED_APPS:
             try:
                 from cmsutils.forms.widgets import TinyMCE
-                return True 
+                return True
             except ImportError:
                 pass
         return False
