@@ -15,8 +15,9 @@ License <http://www.gnu.org/licenses/lgpl.html>
 Requeriments
 ============
 
- * `jQuery <http://jquery.com/>`_
  * `Django Inplace Edit <http://pypi.python.org/pypi/django-inplaceedit/>`_
+
+And others eggs, but it is important: If you want to use one of the fields, you have not to install its requirements
 
 Installation
 ============
@@ -64,8 +65,6 @@ And after when you want use, this specify adaptor you indicate this, e.g.:
 ::
 
    {% inplace_edit "content.field_name" adaptor="tiny" %}
-
-It is important: If you want to use one of the fields, you have not to install its requirements
 
 
 Because this fields are not in django-inplaceedit
