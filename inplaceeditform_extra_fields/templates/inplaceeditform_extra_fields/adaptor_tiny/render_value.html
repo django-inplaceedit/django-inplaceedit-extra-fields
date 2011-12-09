@@ -1,4 +1,6 @@
 {{ value|safe }}
 {% if not is_ajax %}
-  <script type="text/javascript" src="{{ MEDIA_URL}}cmsutils/js/widgets/tiny_mce/tiny_mce.js"></script>
+  {% if field %}
+    {{ field.field.widget.media }}
+  {% endif %}
 {% endif %}

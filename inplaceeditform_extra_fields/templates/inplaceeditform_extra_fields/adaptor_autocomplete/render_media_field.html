@@ -2,7 +2,7 @@
 
 {% block media %}
     {{ block.super }}
-    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    {% include "inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html"%}
     <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
     <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
 {% endblock %}

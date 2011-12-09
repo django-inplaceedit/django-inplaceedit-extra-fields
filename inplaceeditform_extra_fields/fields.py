@@ -165,14 +165,18 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         if self.install_cmsutils():
             return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
                                     {'value': value,
-                                    'MEDIA_URL': settings.MEDIA_URL,
-                                    'adaptor': self,
-                                    'is_ajax': self.request.is_ajax()})
+                                     'MEDIA_URL': settings.MEDIA_URL,
+                                     'adaptor': self,
+                                     'field': self.get_field(),
+                                     'is_ajax': self.request.is_ajax()})
         return value
 
-    def render_media_field(self, template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html"):
+    def render_media_field(self,
+                          template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html",
+                          extra_context=None):
         if self.install_cmsutils():
-            return super(AdaptorTinyMCEField, self).render_media_field(template_name)
+            return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
+                                                                       extra_context=extra_context)
         return super(AdaptorTinyMCEField, self).render_media_field()
 
     def _order_tinymce_buttons(self, buttons_priorized, selectors_priorized,
