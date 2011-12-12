@@ -34,7 +34,7 @@ setup(
         'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
     ],
     license="LGPL 3",
-    keywords="django inplace inline edit inline form",
+    keywords="django,inplace,inline edit,inline form,inline,inplace edit,inplace form,ajax,tinymce,autocomplete,thumbnail",
     url='https://github.com/goinnn/django-inplaceedit-extra-fields',
     packages=('inplaceeditform_extra_fields', ),
     include_package_data=True,
