@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.template.loader import render_to_string
+from django.utils.safestring import mark_safe
 
 from inplaceeditform.fields import (AdaptorForeingKeyField,
                                     AdaptorCommaSeparatedManyToManyField,
@@ -159,6 +160,9 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         field.field.widget = TinyMCE(extra_mce_settings=extra_mce_settings,
                                              print_head=False)
         return field
+
+    def render_value(self, field_name=None):
+        return mark_safe(super(AdaptorTinyMCEField, self).render_value(field_name=field_name))
 
     def render_value_edit(self):
         value = super(AdaptorTinyMCEField, self).render_value_edit()

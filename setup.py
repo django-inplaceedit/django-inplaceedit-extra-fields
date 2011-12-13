@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name="django-inplaceedit-extra-fields",
-    version="0.0.3",
+    version="0.0.4",
     author=str(unicode("Pablo Mart\xc3\xadn", "utf-8").encode("utf-8")),
     author_email="pmartin@yaco.es",
     description="Django application that adds other useful fields to Django inplace edit",
