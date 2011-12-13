@@ -2,6 +2,7 @@
 ===================
 
 * Fixes a error in tinyMCE adaptor when the user has not edit permission
+* Add MANIFEST.in. Until now, the egg is impossible that work
 
 0.0.3  (2011-12-09)
 ===================
