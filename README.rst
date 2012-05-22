@@ -28,6 +28,16 @@ After installing `django inplace edit egg`_
 .. _`django inplace edit egg`: http://pypi.python.org/pypi/django-inplaceedit/#installation
 
 
+Demo
+====
+
+Video Demo, of django-inplaceedit and `Django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+
+
+.. image:: http://svnpub.yaco.es/djangoapps/inplaceeditform/trunk/video-frame.png
+   :target: http://www.youtube.com/watch?v=_EjisXtMy_Y
+
+
 
 
 In your settings.py
