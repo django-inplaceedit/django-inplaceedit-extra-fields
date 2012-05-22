@@ -3,7 +3,7 @@
 {% block media %}
     {{ block.super }}
     {% include "inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html"%}
-    <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
-    <link href="{{ MEDIA_URL }}ajax_selects/css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
+    <link href="{{ STATIC_URL_AJAX_SELECTS }}css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
+    <link href="{{ STATIC_URL_AJAX_SELECTS }}css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
 {% endblock %}
 

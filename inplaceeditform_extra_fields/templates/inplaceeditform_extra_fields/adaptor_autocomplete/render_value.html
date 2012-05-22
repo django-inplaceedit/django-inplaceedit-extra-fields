@@ -1,5 +1,5 @@
 {{ value }}
 {% if not is_ajax %}
     {% include "inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html"%}
-    <script type="text/javascript" src="{{ MEDIA_URL }}ajax_selects/js/ajax_select.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL_AJAX_SELECTS }}js/ajax_select.js"></script>
 {% endif %}

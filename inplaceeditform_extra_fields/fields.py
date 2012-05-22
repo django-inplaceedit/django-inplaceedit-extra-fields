@@ -2,6 +2,7 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
+from inplaceeditform.commons import get_static_url
 from inplaceeditform.fields import (AdaptorForeingKeyField,
                                     AdaptorCommaSeparatedManyToManyField,
                                     AdaptorImageField,
@@ -38,7 +39,8 @@ class AdaptorAutoCompleteProvider(object):
         if self.install_ajax_select():
             return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value.html',
                                     {'value': value,
-                                    'MEDIA_URL': settings.MEDIA_URL,
+                                    'STATIC_URL': get_static_url(),
+                                    'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects'),
                                     'is_ajax': self.request.is_ajax()})
         return super(AdaptorAutoCompleteProvider, self).render_value_edit()
 
@@ -144,7 +146,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
         content_css = [i for i in tiny_extra_media.get('css', [])]
-        content_css = ','.join(["%s%s" % (settings.MEDIA_URL, css) for css in content_css])
+        content_css = ','.join(["%s%s" % (get_static_url(), css) for css in content_css])
         content_js = [i for i in tiny_extra_media.get('css', [])]
         extra_mce_settings.update({'inplace_edit': True,
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
@@ -169,7 +171,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         if self.install_cmsutils():
             return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
                                     {'value': value,
-                                     'MEDIA_URL': settings.MEDIA_URL,
                                      'adaptor': self,
                                      'field': self.get_field(),
                                      'is_ajax': self.request.is_ajax()})
