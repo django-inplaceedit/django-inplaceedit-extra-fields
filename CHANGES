@@ -1,3 +1,9 @@
+0.0.6  (2011-05-22)
+===================
+
+* Uncouple cmsutils of the tinyMCE widget overwriting two methods
+
+
 0.0.5  (2011-05-22)
 ===================
 
