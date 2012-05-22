@@ -124,6 +124,11 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                 pass
         return False
 
+    @property
+    def TinyMCE(self):
+        from cmsutils.forms.widgets import TinyMCE
+        return TinyMCE
+
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
         if not self.install_cmsutils():
@@ -158,8 +163,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                    'content_css': content_css,
                                    'content_js': content_js})
         extra_mce_settings.update(self.widget_options)
-        from cmsutils.forms.widgets import TinyMCE
-        field.field.widget = TinyMCE(extra_mce_settings=extra_mce_settings,
+        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings,
                                              print_head=False)
         return field
 
