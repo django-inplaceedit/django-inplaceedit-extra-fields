@@ -19,14 +19,6 @@ Requeriments
 
 And other eggs, but it is important: If you want to use one of the fields, you do not have to install its requirements
 
-Installation
-============
-
-After installing `django inplace edit egg`_
-
-
-.. _`django inplace edit egg`: http://pypi.python.org/pypi/django-inplaceedit/#installation
-
 
 Demo
 ====
@@ -38,6 +30,14 @@ Video Demo, of django-inplaceedit and `Django-inlinetrans <http://pypi.python.or
    :target: http://www.youtube.com/watch?v=_EjisXtMy_Y
 
 
+
+Installation
+============
+
+After installing `django inplace edit egg`_
+
+
+.. _`django inplace edit egg`: http://pypi.python.org/pypi/django-inplaceedit/#installation
 
 
 In your settings.py
