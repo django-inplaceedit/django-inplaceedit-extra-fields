@@ -115,24 +115,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         super(AdaptorTinyMCEField, self).__init__(*args, **kwargs)
         self.widget_options = self.config and self.config.get('widget_options', {})
 
-    def install_cmsutils(self):
-        if 'cmsutils' in settings.INSTALLED_APPS:
-            try:
-                from cmsutils.forms.widgets import TinyMCE
-                return True
-            except ImportError:
-                pass
-        return False
-
     @property
     def TinyMCE(self):
-        from cmsutils.forms.widgets import TinyMCE
+        from inplaceeditform_extra_fields.widgets import TinyMCE
         return TinyMCE
 
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
-        if not self.install_cmsutils():
-            return field
         tiny_mce_buttons = {
             '0': ['bold', 'italic', 'underline', 'justifyleft',
                   'justifycenter', 'justifyright', 'justifyfull'],
@@ -163,8 +152,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                    'content_css': content_css,
                                    'content_js': content_js})
         extra_mce_settings.update(self.widget_options)
-        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings,
-                                             print_head=False)
+        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings)
         return field
 
     def render_value(self, field_name=None):
@@ -172,21 +160,17 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def render_value_edit(self):
         value = super(AdaptorTinyMCEField, self).render_value_edit()
-        if self.install_cmsutils():
-            return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
-                                    {'value': value,
-                                     'adaptor': self,
-                                     'field': self.get_field(),
-                                     'is_ajax': self.request.is_ajax()})
-        return value
+        return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
+                                {'value': value,
+                                 'adaptor': self,
+                                 'field': self.get_field(),
+                                 'is_ajax': self.request.is_ajax()})
 
     def render_media_field(self,
                           template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html",
                           extra_context=None):
-        if self.install_cmsutils():
-            return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
-                                                                       extra_context=extra_context)
-        return super(AdaptorTinyMCEField, self).render_media_field()
+        return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
+                                                                    extra_context=extra_context)
 
     def _order_tinymce_buttons(self, buttons_priorized, selectors_priorized,
                                button_width=20, selector_width=80):
