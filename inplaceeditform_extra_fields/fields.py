@@ -135,9 +135,8 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                               '1': ['formatselect', 'fontselect'],
                               '2': ['styleselect']}
 
-        extra_mce_settings = getattr(settings, 'EXTRA_MCE', {})
+        extra_mce_settings = {}
         extra_mce_settings.update(self._order_tinymce_buttons(tiny_mce_buttons, tiny_mce_selectors))
-
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
         content_css = [i for i in tiny_extra_media.get('css', [])]
         content_css = ','.join(["%s%s" % (get_static_url(), css) for css in content_css])
@@ -146,12 +145,14 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
                                    'file_browser_callback': 'CustomFileBrowser',
                                    'theme_advanced_statusbar_location': "bottom",
+                                   'theme_advanced_toolbar_location': "external",
                                    'theme_advanced_resizing': True,
                                    'theme_advanced_resize_horizontal': True,
                                    'convert_on_click': True,
                                    'content_css': content_css,
                                    'content_js': content_js})
         extra_mce_settings.update(self.widget_options)
+        extra_mce_settings.update(getattr(settings, 'INPLACE_EXTRA_MCE', {}))
         field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings)
         return field
 
