@@ -67,8 +67,8 @@ class TinyMCE(widgets.Textarea):
 
         self.mce_settings['elements'] = "id_%s" % name
         if 'functions' in self.mce_settings:
-            functions = self.mce_settings['funcions']
-            del self.mce_settings['funcions']
+            functions = self.mce_settings['functions']
+            del self.mce_settings['functions']
         else:
             functions = ''
         mce_json = JSONEncoder().encode(self.mce_settings)
