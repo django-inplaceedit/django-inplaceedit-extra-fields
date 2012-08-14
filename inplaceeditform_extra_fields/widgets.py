@@ -25,7 +25,7 @@ class TinyMCE(widgets.Textarea):
         plugins="preview,paste,inplaceedit,table",
         theme_advanced_disable="",
         theme_advanced_buttons1="undo,redo,separator,cut,copy,paste,pastetext,pasteword,separator,preview,separator,bold,italic,underline,justifyleft,justifycenter,justifyright,bullist,numlist,outdent,indent",
-        theme_advanced_buttons2="fontselect,fontsizeselect,link,image,code",
+        theme_advanced_buttons2="fontselect,fontsizeselect,link,code",
         theme_advanced_buttons3="",
         theme_advanced_buttons4="",
         theme_advanced_toolbar_location="top",
@@ -66,6 +66,16 @@ class TinyMCE(widgets.Textarea):
         final_attrs = self.build_attrs(attrs, name=name)
 
         self.mce_settings['elements'] = "id_%s" % name
+        if 'functions' in self.mce_settings:
+            functions = self.mce_settings['funcions']
+            del self.mce_settings['funcions']
+        else:
+            functions = ''
         mce_json = JSONEncoder().encode(self.mce_settings)
         return mark_safe(u'''<textarea%s>%s</textarea>
-                <script type="text/javascript">tinyMCE.init(%s)</script>''' % (flatatt(final_attrs), escape(value), mce_json))
+                <script type="text/javascript">
+                    %s
+                    tinyMCE.init(%s)</script>''' % (flatatt(final_attrs),
+                                                    escape(value),
+                                                    functions,
+                                                    mce_json))

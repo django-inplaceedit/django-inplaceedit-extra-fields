@@ -129,7 +129,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             '2': ['undo', 'redo'],
             '3': ['cut', 'copy', 'paste', 'pasteword'],
             '4': ['forecolor', 'link', 'code', 'internal_links'],
-            '5': ['iframes', 'image', 'file', 'removeformat'],
+            '5': ['iframes', 'file', 'removeformat'],
             }
         tiny_mce_selectors = {'0': ['fontsizeselect'],
                               '1': ['formatselect', 'fontselect'],
@@ -140,6 +140,16 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
         content_css = [i for i in tiny_extra_media.get('css', [])]
         content_css = ','.join(["%s%s" % (get_static_url(), css) for css in content_css])
+        include_content_css = getattr(settings, 'TINYMCE_INCLUDE_CONTENT_CSS', False)
+        if content_css:
+            js_css = ["ed.dom.loadCSS('%s')" % css for css in content_css.split(',')]
+            load_css = """function loadMyCSS(ed) {
+                %s
+            }""" % ';'.join(js_css)
+            extra_mce_settings['init_instance_callback'] = "loadMyCSS"
+            extra_mce_settings['functions'] = load_css
+        if not content_css or include_content_css:
+            content_css = False
         content_js = [i for i in tiny_extra_media.get('css', [])]
         extra_mce_settings.update({'inplace_edit': True,
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
@@ -149,7 +159,8 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                    'theme_advanced_resizing': True,
                                    'theme_advanced_resize_horizontal': True,
                                    'convert_on_click': True,
-                                   'content_css': content_css,
+                                   'min_height': 19,
+                                   'content_css': False,
                                    'content_js': content_js})
         extra_mce_settings.update(self.widget_options)
         extra_mce_settings.update(getattr(settings, 'INPLACE_EXTRA_MCE', {}))
@@ -191,15 +202,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                                             selector_width)
         buttons_width = len(buttons) * button_width
         selectors_width = len(selectors) * selector_width
-
         if total_width >= buttons_width + selectors_width:  # one row
-            if total_width >= selectors_width:
-                result['theme_advanced_buttons1'] = ','.join(buttons)
-                result['theme_advanced_buttons2'] = ','.join(selectors)
-            else:
-                num_selectors = (total_width - buttons_width) / selector_width
-                result['theme_advanced_buttons1'] = ','.join(selectors[:num_selectors] + buttons)
-
+            buttons_selectors = buttons + selectors
+            theme_advanced_buttons1 = ','.join(buttons_selectors)
+            result['theme_advanced_buttons1'] = theme_advanced_buttons1
         elif total_width * 2 >= buttons_width + selectors_width:  # two rows
             aux_index = total_width / button_width
             if total_width >= buttons_width:
