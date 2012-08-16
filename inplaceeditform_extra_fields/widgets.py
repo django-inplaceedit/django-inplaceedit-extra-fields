@@ -6,7 +6,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.simplejson import JSONEncoder
 
-TINYMCE_JS = settings.STATIC_URL + "tiny_mce/tiny_mce.js"
+TINYMCE_JS = settings.STATIC_URL + "tiny_mce/tiny_mce_src.js"
 
 
 class TinyMCE(widgets.Textarea):
@@ -56,15 +56,11 @@ class TinyMCE(widgets.Textarea):
         return_dict.update(custom)
         return return_dict
 
-    def with_head(self, on=True):
-        self.print_head = on
-
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
         value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs, name=name)
-
         self.mce_settings['elements'] = "id_%s" % name
         if 'functions' in self.mce_settings:
             functions = self.mce_settings['functions']

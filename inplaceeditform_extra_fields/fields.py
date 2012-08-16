@@ -120,6 +120,18 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         from inplaceeditform_extra_fields.widgets import TinyMCE
         return TinyMCE
 
+    def treatment_height(self, height, width=None):
+        height = super(AdaptorTinyMCEField, self).treatment_height(height, width=width)
+        if isinstance(height, basestring) and height.endswith('px'):
+            height = height[:-2]
+        return height
+
+    def treatment_width(self, width, height=None):
+        height = super(AdaptorTinyMCEField, self).treatment_width(width, height=width)
+        if isinstance(height, basestring) and width.endswith('px'):
+            width = height[:-2]
+        return width
+
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
         tiny_mce_buttons = {
@@ -159,10 +171,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                    'theme_advanced_resizing': True,
                                    'theme_advanced_resize_horizontal': True,
                                    'convert_on_click': True,
-                                   'min_height': 19,
                                    'content_css': False,
                                    'content_js': content_js})
-        extra_mce_settings.update(self.widget_options)
+        if 'height' in self.widget_options:
+            extra_mce_settings['height'] = self.treatment_height(self.widget_options['height'], self.widget_options.get('width', None))
+            extra_mce_settings['min_height'] = extra_mce_settings['height']
+        if 'width' in self.widget_options:
+            extra_mce_settings['width'] = self.treatment_width(self.widget_options['width'], self.widget_options.get('height', None))
         extra_mce_settings.update(getattr(settings, 'INPLACE_EXTRA_MCE', {}))
         field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings)
         return field
@@ -177,6 +192,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                  'adaptor': self,
                                  'field': self.get_field(),
                                  'is_ajax': self.request.is_ajax()})
+
+    def render_field(self, template_name="inplaceeditform_extra_fields/adaptor_tiny/render_field.html", extra_context=None):
+        return super(AdaptorTinyMCEField, self).render_field(template_name=template_name,
+                                                             extra_context=extra_context)
 
     def render_media_field(self,
                           template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html",
