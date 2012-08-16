@@ -2,3 +2,6 @@
     display: none;
 }
 
+.tinyinplaceedit {
+    border: 1px solid transparent;
+}

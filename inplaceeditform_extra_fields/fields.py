@@ -142,6 +142,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             '3': ['cut', 'copy', 'paste', 'pasteword'],
             '4': ['forecolor', 'link', 'code', 'internal_links'],
             '5': ['iframes', 'file', 'removeformat'],
+            '6': ['apply_inplace_edit', 'cancel_inplace_edit'],
             }
         tiny_mce_selectors = {'0': ['fontsizeselect'],
                               '1': ['formatselect', 'fontselect'],
