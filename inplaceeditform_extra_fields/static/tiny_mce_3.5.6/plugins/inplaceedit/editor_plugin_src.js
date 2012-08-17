@@ -8,6 +8,7 @@
             if (ed.settings.inplace_edit) {
                 ed.onLoadContent.add(function (ed, ev, ob) {
                     ed.execCommand('mceFocus', false, 'mce_editor_0');
+                    setTimeout(function() {ed.onMouseUp.dispatch();}, 500);
                     t.getIframe(ed).contents().find("#tinymce").blur(function () {
                         t.saveInServer(ed);
                     });
@@ -25,7 +26,6 @@
                     cmd : "mceCancelInplaceEdit",
                     image : url + "/img/cancel.gif"
                 });
-                this.ed = ed;
                 ed.addCommand("mceApplyInplaceEdit", t.saveInServerBind);
                 ed.addCommand("mceCancelInplaceEdit", t.cancelBind);
             }
@@ -37,16 +37,22 @@
             this.plugins.inplaceedit.cancel(this);
         },
         save: function (ed) {
-            if (ed.isDirty()) {
+            var isDirty = ed.isDirty();
+            if (isDirty) {
                 ed.save();
             }
+            return isDirty;
         },
         saveInServer: function (ed) {
             if (!ed) {
                 ed = this;
             }
-            this.save(ed);
-            this.getIframe(ed).parents(".inplaceeditform").find(".apply").click();
+            var isDirty = this.save(ed);
+            if (isDirty) {
+                this.getIframe(ed).parents(".inplaceeditform").find(".apply").click();
+            } else {
+                this.getIframe(ed).parents(".inplaceeditform").find(".cancel").click();
+            }
         },
         cancel: function (ed) {
             this.getIframe(ed).parents(".inplaceeditform").find(".cancel").click();
