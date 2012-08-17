@@ -6,7 +6,7 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.simplejson import JSONEncoder
 
-TINYMCE_JS = settings.STATIC_URL + "tiny_mce_3.5.6/tiny_mce.js"
+TINYMCE_JS = settings.STATIC_URL + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
 
 
 class TinyMCE(widgets.Textarea):
