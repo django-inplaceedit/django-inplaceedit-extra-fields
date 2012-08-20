@@ -3,6 +3,22 @@
         border: 1px solid transparent;
     }
 </style>
+<script type="text/javascript">
+    (function($){
+        $(document).ready(function () {
+            function tinyExtraConfig(data) {
+                var css = "";
+                $("link").map(function () {
+                    if ($(this).attr("href") !== "") {
+                        css += $(this).attr("href") + ",";
+                    }
+                });
+                return data + "&__css=" + css;
+            }
+            $(".textareainplaceedit .config").data("extraConfig", tinyExtraConfig);
+    });
+    })(jQuery);
+</script>
 {{ value }}
 {% if not is_ajax %}
   {% if field %}

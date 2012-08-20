@@ -157,7 +157,11 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         extra_mce_settings.update(self._order_tinymce_buttons(tiny_mce_buttons, tiny_mce_selectors))
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
         content_css = [i for i in tiny_extra_media.get('css', [])]
-        content_css = ','.join(["%s%s" % (get_static_url(), css) for css in content_css])
+        css_page = self.config.get('__css', '').split(',')
+        content_css = ["%s%s" % (get_static_url(), css) for css in content_css]
+        content_css += css_page
+        content_css = list(set(content_css))
+        content_css = ','.join(content_css)
         include_content_css = getattr(settings, 'TINYMCE_INCLUDE_CONTENT_CSS', False)
         if content_css:
             js_css = ["ed.dom.loadCSS('%s')" % css for css in content_css.split(',')]
