@@ -41,7 +41,7 @@ class AdaptorAutoCompleteProvider(object):
     def render_value_edit(self):
         value = super(AdaptorAutoCompleteProvider, self).render_value_edit()
         if self.install_ajax_select():
-            return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value.html',
+            return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value_edit.html',
                                     {'value': value,
                                     'STATIC_URL': get_static_url(),
                                     'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects'),
@@ -114,6 +114,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     @property
     def name(self):
         return 'tiny'
+
+    @property
+    def classes(self):
+        return super(AdaptorTinyMCEField, self).classes + " textareainplaceedit"
 
     def __init__(self, *args, **kwargs):
         super(AdaptorTinyMCEField, self).__init__(*args, **kwargs)
@@ -193,12 +197,20 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings)
         return field
 
-    def render_value(self, field_name=None):
+    def _render_value(self, field_name=None):
         return mark_safe(super(AdaptorTinyMCEField, self).render_value(field_name=field_name))
 
-    def render_value_edit(self):
-        value = super(AdaptorTinyMCEField, self).render_value_edit()
+    def render_value(self, field_name=None):
+        value = self._render_value(field_name)
+        classes = ' '.join(self.classes.split(' ')[1:])
         return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
+                                {'value': value,
+                                 'classes': classes,
+                                 'adaptor': self})
+
+    def render_value_edit(self):
+        value = self._render_value()
+        return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value_edit.html',
                                 {'value': value,
                                  'adaptor': self,
                                  'field': self.get_field(),

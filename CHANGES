@@ -1,10 +1,10 @@
-0.0.6  (2011-05-22)
+0.0.6  (2012-05-22)
 ===================
 
 * Uncouple cmsutils of the tinyMCE widget overwriting two methods
 
 
-0.0.5  (2011-05-22)
+0.0.5  (2012-05-22)
 ===================
 
 * Now django-inplaceedit-extra-fields managing `static files <https://docs.djangoproject.com/en/dev/howto/static-files/>`_ (backward compatible)
