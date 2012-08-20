@@ -11,6 +11,10 @@ from inplaceeditform.fields import (AdaptorForeingKeyField,
 
 class AdaptorAutoCompleteProvider(object):
 
+    def __init__(self, *args, **kwargs):
+        super(AdaptorAutoCompleteProvider, self).__init__(*args, **kwargs)
+        self.config['can_auto_save'] = 0
+
     def install_ajax_select(self):
         if 'ajax_select' in settings.INSTALLED_APPS:
             lookup = self.config.get('lookup', None)
@@ -114,6 +118,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     def __init__(self, *args, **kwargs):
         super(AdaptorTinyMCEField, self).__init__(*args, **kwargs)
         self.widget_options = self.config and self.config.get('widget_options', {})
+        self.config['can_auto_save'] = 0
 
     @property
     def TinyMCE(self):
@@ -165,9 +170,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             content_css = False
         content_js = [i for i in tiny_extra_media.get('css', [])]
         extra_mce_settings.update({'inplace_edit': True,
+                                   'inplace_edit_auto_save': getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False),
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
                                    'file_browser_callback': 'CustomFileBrowser',
-                                   'theme_advanced_statusbar_location': "bottom",
+                                   'theme_advanced_statusbar_location': "none",
                                    'theme_advanced_toolbar_location': "external",
                                    'theme_advanced_resizing': True,
                                    'theme_advanced_resize_horizontal': True,

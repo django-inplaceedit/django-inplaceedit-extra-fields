@@ -8,10 +8,12 @@
             if (ed.settings.inplace_edit) {
                 ed.onLoadContent.add(function (ed, ev, ob) {
                     ed.execCommand('mceFocus', false, 'mce_editor_0');
-                    setTimeout(function() {ed.onMouseUp.dispatch();}, 500);
-                    t.getIframe(ed).contents().find("#tinymce").blur(function () {
-                        t.saveInServer(ed);
-                    });
+                    setTimeout(function() {ed.onMouseUp.dispatch(ed, ev);}, 500);
+                    if (ed.settings.inplace_edit_auto_save) {
+                        t.getIframe(ed).contents().find("#tinymce").blur(function () {
+                            t.saveInServer(ed);
+                        });
+                    }
                 });
                 ed.onChange.add(function (ed, ev, ob) {
                     t.save(ed);
