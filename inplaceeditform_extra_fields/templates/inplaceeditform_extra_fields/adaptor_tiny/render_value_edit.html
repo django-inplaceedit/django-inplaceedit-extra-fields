@@ -4,7 +4,7 @@
             function tinyExtraConfig(data) {
                 var css = "";
                 $("link").map(function () {
-                    if ($(this).attr("href") !== "") {
+                    if ($(this).attr("href") !== "" && $(this).attr("rel") === "stylesheet") {
                         css += $(this).attr("href") + ",";
                     }
                 });
