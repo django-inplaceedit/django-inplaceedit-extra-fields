@@ -6,7 +6,13 @@ from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.simplejson import JSONEncoder
 
-TINYMCE_JS = settings.STATIC_URL + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
+from inplaceeditform.commons import get_static_url
+
+
+def get_tinyMCE_js():
+    if hasattr(settings, 'INPLACE_TINYMCE_JS'):
+        return settings.INPLACE_TINYMCE_JS
+    return get_static_url() + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
 
 
 class TinyMCE(widgets.Textarea):
@@ -40,7 +46,7 @@ class TinyMCE(widgets.Textarea):
     )
 
     class Media:  # this is for django admin interface
-        js = (TINYMCE_JS,)
+        js = (get_tinyMCE_js(),)
 
     def __init__(self, extra_mce_settings={}, *args, **kwargs):
         super(TinyMCE, self).__init__(*args, **kwargs)
