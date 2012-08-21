@@ -139,6 +139,7 @@ It's very recommended that in your base.html you include the CSS to normalize th
 
     <link rel="stylesheet" href="{{ STATIC_URL }}adaptor_tiny/css/block_normalize.css"> 
 
+.. note:: We use a tinyMCE (version 3.5.6) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/master/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.6/plugins/inplaceedit>`_
 
 
 Development
