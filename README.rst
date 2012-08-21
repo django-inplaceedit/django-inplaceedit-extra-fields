@@ -26,7 +26,7 @@ Demo
 Video Demo, of django-inplaceedit and `Django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
-.. image:: http://svnpub.yaco.es/djangoapps/inplaceeditform/trunk/video-frame.png
+.. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
    :target: http://www.youtube.com/watch?v=_EjisXtMy_Y
 
 
@@ -127,20 +127,19 @@ For more info, visit the `doc of thumbnail <http://thumbnail.sorl.net/>`_
 AdaptorTinyMCEField
 ===================
 
-This field is dependent of `cmsutils <http://pypi.python.org/pypi/cmsutils>`_.
-
 ::
 
     {% inplace_edit "content.field_name" adaptor="tiny" %}
 
 
-For more info, visit the `doc of cmsutils <http://pypi.python.org/pypi/cmsutils>`_ 
+It's very recommended that in your base.html you include the CSS to normalize the first element of the iframe
 
-Also you must link or copy the cmsutils/media/ directory in your project media directory
 
 ::
 
-  ln -s cmsutils/media /path/to/your/project/media/
+    <link rel="stylesheet" href="{{ STATIC_URL }}adaptor_tiny/css/block_normalize.css"> 
+
+
 
 Development
 ===========

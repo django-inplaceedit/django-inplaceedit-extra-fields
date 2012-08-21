@@ -182,12 +182,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         extra_mce_settings.update({'inplace_edit': True,
                                    'inplace_edit_auto_save': getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False),
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
-                                   'file_browser_callback': 'CustomFileBrowser',
                                    'theme_advanced_statusbar_location': "none",
                                    'theme_advanced_toolbar_location': "external",
-                                   'theme_advanced_resizing': True,
-                                   'theme_advanced_resize_horizontal': True,
-                                   'convert_on_click': True,
+                                   'theme_advanced_resizing': False,
+                                   'theme_advanced_resize_horizontal': False,
                                    'content_css': False,
                                    'content_js': content_js})
         if 'height' in self.widget_options:

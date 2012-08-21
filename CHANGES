@@ -1,3 +1,16 @@
+0.0.7  (2012-08-21)
+===================
+
+* Improve the tinyMCE field, modify the settings of the tinyMCE for can do a real inplaceedit, the layout must be the same with the tinyMCE and with a piece of HTML:
+    * Now The tinyMCE automatically load the css of the view
+    * Create a normalize css, there is a problem with the first element of the documents of the iframe
+    * Now you can overwrite the extra_mce_settings from settings
+    * Now I can load some css and not load the content.css of the tinyMCE
+    * Remove the csmutils dependence
+    * Adapt the code to the new option in django-inplaceedit (autosave)
+    * Improve the inplace_edit plugin of the tinyMCE editor 
+    * Update tinyMCE to last release
+
 0.0.6  (2012-05-22)
 ===================
 
