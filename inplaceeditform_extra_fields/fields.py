@@ -143,20 +143,23 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
+        inplace_edit_auto_save = getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)
         tiny_mce_buttons = {
-            '0': ['bold', 'italic', 'underline', 'justifyleft',
-                  'justifycenter', 'justifyright', 'justifyfull'],
-            '1': ['bullist', 'numlist', 'outdent', 'indent'],
-            '2': ['undo', 'redo'],
-            '3': ['cut', 'copy', 'paste', 'pasteword'],
-            '4': ['forecolor', 'link', 'code', 'internal_links'],
-            '5': ['iframes', 'file', 'removeformat'],
-            '6': ['apply_inplace_edit', 'cancel_inplace_edit'],
-            }
-        tiny_mce_selectors = {'0': ['fontsizeselect'],
-                              '1': ['formatselect', 'fontselect'],
-                              '2': ['styleselect']}
-
+            '0': ['apply_inplace_edit', 'cancel_inplace_edit'],
+            '1': ['undo', 'redo'],
+            '2': ['bold', 'italic', 'underline', 'justifyleft',
+                'justifycenter', 'justifyright', 'justifyfull'],
+            '3': ['bullist', 'numlist', 'outdent', 'indent'],
+        }
+        if not inplace_edit_auto_save:
+            tiny_mce_buttons['4'] = ['cut', 'copy', 'paste', 'pasteword']
+            tiny_mce_buttons['5'] = ['forecolor', 'link', 'code', 'internal_links']
+            tiny_mce_buttons['6'] = ['iframes', 'file', 'removeformat']
+            tiny_mce_selectors = {'0': ['fontsizeselect'],
+                                  '1': ['formatselect', 'fontselect'],
+                                  '2': ['styleselect']}
+        else:
+            tiny_mce_selectors = {}
         extra_mce_settings = {}
         extra_mce_settings.update(self._order_tinymce_buttons(tiny_mce_buttons, tiny_mce_selectors))
         tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
@@ -164,7 +167,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         css_page = self.config.get('__css', '').split(',')
         content_css = ["%s%s" % (get_static_url(), css) for css in content_css]
         content_css += css_page
-        content_css = list(set(content_css))
         content_css = ','.join(content_css)
         include_content_css = getattr(settings, 'TINYMCE_INCLUDE_CONTENT_CSS', False)
         if content_css:
@@ -274,8 +276,9 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         buttons_list = []
         selectors_list = []
         # we assume that we have more priority levels on buttons
-
-        for key in buttons:
+        buttons_keys = buttons.keys()
+        buttons_keys.sort()
+        for key in buttons_keys:
             if (used_width + button_width * len(buttons[key])) < total_width:
                 buttons_list += buttons[key]
                 used_width += button_width * len(buttons[key])
