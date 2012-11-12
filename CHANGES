@@ -1,3 +1,8 @@
+0.0.8  (2012-11-12)
+===================
+
+* Fix a little error of the tinyMCE adaptor: Thanks to `Yuego <https://github.com/Yuego/>`_
+
 0.0.7  (2012-08-21)
 ===================
 
