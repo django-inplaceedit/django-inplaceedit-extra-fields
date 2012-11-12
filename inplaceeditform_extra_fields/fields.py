@@ -137,7 +137,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def treatment_width(self, width, height=None):
         height = super(AdaptorTinyMCEField, self).treatment_width(width, height=width)
-        if isinstance(height, basestring) and width.endswith('px'):
+        if isinstance(height, basestring) and height.endswith('px'):
             width = height[:-2]
         return width
 
