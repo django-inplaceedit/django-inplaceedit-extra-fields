@@ -7,23 +7,23 @@ Inplace Edit Form Extra Fields
 Information
 ===========
 
-Inplace Edit Form Extra Field is a Django application that adds other useful fields.
+Inplace Edit Form Extra Field is a Django application that adds other useful fields to `Inplace Edit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
 
-It is distributed under the terms of the GNU Lesser General Public
-License <http://www.gnu.org/licenses/lgpl.html>
+It is distributed under the terms of the `GNU Lesser General Public
+License <http://www.gnu.org/licenses/lgpl.html>`_.
 
-Requeriments
+Requirements
 ============
 
  * `Django Inplace Edit <http://pypi.python.org/pypi/django-inplaceedit/>`_
 
-And other eggs, but it is important: If you want to use one of the fields, you do not have to install its requirements
+And other packages, depending on which fields you want to use (see below).
 
 
 Demo
 ====
 
-Video Demo, of django-inplaceedit and `Django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+Video Demo of django-inplaceedit and `Django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
@@ -56,7 +56,7 @@ In your settings.py
         'inplaceeditform_extra_fields',
     )
 
-If you want overwrite the adaptors for any case in your project:
+If you want to overwrite the adaptors for all cases in your project:
 
 ::
 
@@ -65,7 +65,7 @@ If you want overwrite the adaptors for any case in your project:
                            'fk': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteForeingKeyField',
                            'm2mcomma': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteManyToManyField'}
 
-If you want, you can register these fields in your settings, with other keys:
+If you want, you can register these fields in your settings with different keys:
 
 ::
 
@@ -74,25 +74,25 @@ If you want, you can register these fields in your settings, with other keys:
                            'image_thumb': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
                            'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',}
 
-And after when you want use this specific adaptor you indicate it, e.g.:
+And after that, to want use a specific adaptor you can pass it to the templatetag, e.g.:
 
 ::
 
    {% inplace_edit "content.field_name" adaptor="tiny" %}
 
 
-Because these fields are not in django-inplaceedit
-==================================================
+Why these fields are not in django-inplaceedit
+==============================================
 
- * They have dependece of the other eggs
- * They are a particular solution
- * Theese do not work immediately, you have to code them
+ * They depends on the other eggs
+ * They are a specific solution
+ * These do not work immediately, you have to code them
 
 
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
-These fields are dependent of `Django Ajax Select <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
+These fields depend on `Django Ajax Select <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
 
 ::
 
@@ -100,7 +100,7 @@ These fields are dependent of `Django Ajax Select <http://pypi.python.org/pypi/d
 
 For more info, visit the `doc of ajax select <https://github.com/twidi/django-ajax-select/blob/master/ajax_select/docs.txt#L40>`_
 
-It is recomended overwrite the next templates:
+It is recomended you overwrite the following templates:
 
  * `inc.css_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html>`_
  * `inc.js_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html>`_
@@ -108,7 +108,7 @@ It is recomended overwrite the next templates:
 AdaptorImageThumbnailField
 ==========================
 
-This field is dependent of `Sorl thumbnail <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You only should indicate the size.
+This field depends on `Sorl thumbnail <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
 
 ::
 
@@ -132,7 +132,7 @@ AdaptorTinyMCEField
     {% inplace_edit "content.field_name" adaptor="tiny" %}
 
 
-It's very recommended that in your base.html you include the CSS to normalize the first element of the iframe
+It's highly recommended that in your base.html you include the following CSS, to normalize the first element of the iframe
 
 
 ::
@@ -141,7 +141,7 @@ It's very recommended that in your base.html you include the CSS to normalize th
 
 .. note:: 
 
-    We use a tinyMCE (version 3.5.6) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/master/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.6/plugins/inplaceedit>`_
+    We use tinyMCE (version 3.5.6) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/master/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.6/plugins/inplaceedit>`_
 
 
 Development
