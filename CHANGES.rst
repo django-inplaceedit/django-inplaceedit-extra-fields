@@ -1,7 +1,7 @@
 0.0.9  (2013-??-??)
 ===================
 
-* fixed some grammar in README: Thanks to `Flavio Curella <https://github.com/fcurella/>`_
+* Fix some grammar in README: Thanks to `Flavio Curella <https://github.com/fcurella/>`_
 
 0.0.8  (2012-11-12)
 ===================
