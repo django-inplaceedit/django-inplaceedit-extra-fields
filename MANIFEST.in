@@ -1,6 +1,6 @@
 include README.rst
 include AUTHORS
-include CHANGES
+include CHANGES.rst
 include *.py
 recursive-include inplaceeditform_extra_fields/templates *
 recursive-include inplaceeditform_extra_fields/static *

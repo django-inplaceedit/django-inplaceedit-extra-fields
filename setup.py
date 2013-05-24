@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2011 by Pablo Martín <goinnn@gmail.com>
+# Copyright (c) 2011-2013 by Pablo Martín <goinnn@gmail.com>
 #
 # This software is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -23,11 +23,11 @@ def read(*rnames):
 
 setup(
     name="django-inplaceedit-extra-fields",
-    version="0.0.8",
+    version="0.0.9",
     author="Pablo Martin",
     author_email="goinnn@gmail.com",
     description="Django application that adds other useful fields to Django inplace edit",
-    long_description=(read('README.rst') + '\n\n' + read('CHANGES')),
+    long_description=(read('README.rst') + '\n\n' + read('CHANGES.rst')),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Framework :: Django',
