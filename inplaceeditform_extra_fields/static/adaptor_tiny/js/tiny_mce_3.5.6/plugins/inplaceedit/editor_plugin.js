@@ -7,7 +7,7 @@
             var t = this;
             if (ed.settings.inplace_edit) {
                 ed.onLoadContent.add(function (ed, ev, ob) {
-                    ed.execCommand('mceFocus', false, 'mce_editor_0');
+                    ed.settings.auto_focus = ed.id;
                     setTimeout(function() {ed.onMouseUp.dispatch(ed, ev);}, 500);
                     if (ed.settings.inplace_edit_auto_save) {
                         t.getIframe(ed).contents().find("#tinymce").blur(function () {

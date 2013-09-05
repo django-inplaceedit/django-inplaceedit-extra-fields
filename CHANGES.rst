@@ -1,3 +1,8 @@
+0.1.0  (2013-09-05)
+===================
+
+* Fix an error in IE browser with the AdaptorTinyMCEField
+
 0.0.9  (2013-09-05)
 ===================
 
