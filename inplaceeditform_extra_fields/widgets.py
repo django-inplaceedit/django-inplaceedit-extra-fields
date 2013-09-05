@@ -13,12 +13,11 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
-
+import sys
 
 from django.conf import settings
 from django.forms import widgets
 from django.forms.util import flatatt
-from django.utils.encoding import smart_unicode
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.simplejson import JSONEncoder
@@ -29,7 +28,7 @@ from inplaceeditform.commons import get_static_url
 def get_tinyMCE_js():
     if hasattr(settings, 'INPLACE_TINYMCE_JS'):
         return settings.INPLACE_TINYMCE_JS
-    return get_static_url() + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
+    return get_static_url(subfix='inplaceeditform_extra_fields') + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
 
 
 class TinyMCE(widgets.Textarea):
@@ -82,7 +81,9 @@ class TinyMCE(widgets.Textarea):
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        value = smart_unicode(value)
+        if sys.version_info.major == 2:
+            from django.utils.encoding import smart_unicode
+            value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs, name=name)
         self.mce_settings['elements'] = "id_%s" % name
         if 'functions' in self.mce_settings:

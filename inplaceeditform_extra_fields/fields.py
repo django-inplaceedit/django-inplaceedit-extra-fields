@@ -13,7 +13,7 @@
 #
 # You should have received a copy of the GNU Lesser General Public License
 # along with this software.  If not, see <http://www.gnu.org/licenses/>.
-
+import sys
 
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -24,6 +24,12 @@ from inplaceeditform.fields import (AdaptorForeingKeyField,
                                     AdaptorCommaSeparatedManyToManyField,
                                     AdaptorImageField,
                                     AdaptorTextAreaField)
+
+if sys.version_info.major == 2:
+    string = basestring
+else:
+    string = str
+    unicode = str
 
 
 class AdaptorAutoCompleteProvider(object):
@@ -49,9 +55,10 @@ class AdaptorAutoCompleteProvider(object):
         return field
 
     def render_media_field(self,
-            template_name="inplaceeditform_extra_fields/adaptor_autocomplete/render_media_field.html",
-            extra_context=None):
+                           template_name="inplaceeditform_extra_fields/adaptor_autocomplete/render_media_field.html",
+                           extra_context=None):
         if self.install_ajax_select():
+            extra_context = {'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')}
             return super(AdaptorAutoCompleteProvider, self).render_media_field(template_name, extra_context)
         return super(AdaptorAutoCompleteProvider, self).render_media_field()
 
@@ -60,9 +67,9 @@ class AdaptorAutoCompleteProvider(object):
         if self.install_ajax_select():
             return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value_edit.html',
                                     {'value': value,
-                                    'STATIC_URL': get_static_url(),
-                                    'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects'),
-                                    'is_ajax': self.request.is_ajax()})
+                                     'STATIC_URL': get_static_url(),
+                                     'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects'),
+                                     'is_ajax': self.request.is_ajax()})
         return super(AdaptorAutoCompleteProvider, self).render_value_edit()
 
 
@@ -117,8 +124,8 @@ class AdaptorImageThumbnailField(AdaptorImageField):
         return False
 
     def render_value(self,
-                    field_name=None,
-                    template_name='inplaceeditform_extra_fields/adaptor_image_thumb/render_value.html'):
+                     field_name=None,
+                     template_name='inplaceeditform_extra_fields/adaptor_image_thumb/render_value.html'):
         if self.install_sorl_thumbnail():
             return super(AdaptorImageThumbnailField, self).render_value(field_name=field_name, template_name=template_name)
         return super(AdaptorImageThumbnailField, self).render_value(field_name=field_name)
@@ -127,6 +134,8 @@ class AdaptorImageThumbnailField(AdaptorImageField):
 class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     #code of: http://dev.merengueproject.org/browser/trunk/merengueproj/merengue/uitools/fields.py?rev=5352#L65
+
+    MIN_HEIGHT = 35
 
     @property
     def name(self):
@@ -148,13 +157,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def treatment_height(self, height, width=None):
         height = super(AdaptorTinyMCEField, self).treatment_height(height, width=width)
-        if isinstance(height, basestring) and height.endswith('px'):
-            height = height[:-2]
-        return height
+        if isinstance(height, string) and height.endswith('px'):
+            height = int(height[:-2])
+        return max(height, self.MIN_HEIGHT)
 
     def treatment_width(self, width, height=None):
         height = super(AdaptorTinyMCEField, self).treatment_width(width, height=width)
-        if isinstance(height, basestring) and height.endswith('px'):
+        if isinstance(height, string) and height.endswith('px'):
             width = height[:-2]
         return width
 
@@ -165,7 +174,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             '0': ['apply_inplace_edit', 'cancel_inplace_edit'],
             '1': ['undo', 'redo'],
             '2': ['bold', 'italic', 'underline', 'justifyleft',
-                'justifycenter', 'justifyright', 'justifyfull'],
+                  'justifycenter', 'justifyright', 'justifyfull'],
             '3': ['bullist', 'numlist', 'outdent', 'indent'],
         }
         if not inplace_edit_auto_save:
@@ -238,10 +247,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                                                              extra_context=extra_context)
 
     def render_media_field(self,
-                          template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html",
-                          extra_context=None):
+                           template_name="inplaceeditform_extra_fields/adaptor_tiny/render_media_field.html",
+                           extra_context=None):
+        extra_context = extra_context or {}
+        context = {'STATIC_URL': get_static_url(subfix='inplaceeditform_extra_fields')}
+        context.update(extra_context)
         return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
-                                                                    extra_context=extra_context)
+                                                                   extra_context=context)
 
     def _order_tinymce_buttons(self, buttons_priorized, selectors_priorized,
                                button_width=20, selector_width=80):
@@ -250,7 +262,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             'theme_advanced_buttons1': '',
             'theme_advanced_buttons2': '',
             'theme_advanced_buttons3': '',
-            }
+        }
         if not 'width' in self.widget_options or not self.widget_options['width']:
             return result
 
@@ -291,8 +303,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         buttons_list = []
         selectors_list = []
         # we assume that we have more priority levels on buttons
-        buttons_keys = buttons.keys()
-        buttons_keys.sort()
+        buttons_keys = sorted(buttons.keys())
         for key in buttons_keys:
             if (used_width + button_width * len(buttons[key])) < total_width:
                 buttons_list += buttons[key]
