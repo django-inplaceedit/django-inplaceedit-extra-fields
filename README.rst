@@ -7,6 +7,12 @@ Inplace Edit Form Extra Fields
 Information
 ===========
 
+.. image:: https://badge.fury.io/py/django-inplaceedit-extra-fields.png
+    :target: https://badge.fury.io/py/django-inplaceedit-extra-fields
+
+.. image:: https://pypip.in/d/django-inplaceedit-extra-fields/badge.png
+    :target: https://pypi.python.org/pypi/django-inplaceedit-extra-fields
+
 Inplace Edit Form Extra Field is a Django application that adds other useful fields to `Inplace Edit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
 
 It is distributed under the terms of the `GNU Lesser General Public
@@ -15,7 +21,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `Django Inplace Edit <http://pypi.python.org/pypi/django-inplaceedit/>`_
+ * `Django Inplace Edit (1.0.0) <http://pypi.python.org/pypi/django-inplaceedit/>`_
 
 And other packages, depending on which fields you want to use (see below).
 
@@ -92,7 +98,7 @@ Why these fields are not in django-inplaceedit
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
-These fields depend on `Django Ajax Select <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
+These fields depend on `Django Ajax Select (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
 
 ::
 
@@ -108,7 +114,7 @@ It is recomended you overwrite the following templates:
 AdaptorImageThumbnailField
 ==========================
 
-This field depends on `Sorl thumbnail <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
+This field depends on `Sorl thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
 
 ::
 

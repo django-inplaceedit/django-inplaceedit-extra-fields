@@ -1,6 +1,11 @@
-0.0.9  (2013-??-??)
+0.0.9  (2013-09-05)
 ===================
 
+* Python 3 compatible (Only AdaptorTinyMCEField, django-ajax-fields and sorl.thumbnail are not python3 compatibles)
+* django-inplaceedit (1.0.0) compatible
+* django 1.2 support
+* Improvements in the README
+* Fix some details
 * Fix some grammar in README: Thanks to `Flavio Curella <https://github.com/fcurella/>`_
 
 0.0.8  (2012-11-12)
