@@ -21,15 +21,15 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `Django Inplace Edit (1.0.0) <http://pypi.python.org/pypi/django-inplaceedit/>`_
+ * `Django Inplace Edit (>= 1.0.0) <http://pypi.python.org/pypi/django-inplaceedit/>`_
 
 And other packages, depending on which fields you want to use (see below).
 
 
-Demo
-====
+Demo (this video use a very old version of django-inplaceedit and django-inplaceedit-extra-fields)
+==================================================================================================
 
-Video Demo of django-inplaceedit and `Django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+Video Demo, of django-inplaceedit, `django-inplaceedit-extra-fields <http://pypi.python.org/pypi/django-inplaceedit-extra-fields>`_ and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
@@ -43,7 +43,7 @@ Installation
 After installing `django inplace edit egg`_
 
 
-.. _`django inplace edit egg`: http://pypi.python.org/pypi/django-inplaceedit/#installation
+.. _`django inplace edit egg`: https://django-inplaceedit.readthedocs.org/en/latest/install.html
 
 
 In your settings.py
@@ -87,10 +87,10 @@ And after that, to want use a specific adaptor you can pass it to the templateta
    {% inplace_edit "content.field_name" adaptor="tiny" %}
 
 
-Why these fields are not in django-inplaceedit
-==============================================
+Why these fields are not in django-inplaceedit?
+===============================================
 
- * They depends on the other eggs
+ * They depend on the other eggs
  * They are a specific solution
  * These do not work immediately, you have to code them
 

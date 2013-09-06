@@ -62,9 +62,9 @@
         getInfo: function () {
             return {
                 longname : "Inplace Edit plugin",
-                author : "Yaco",
-                authorurl : "http://www.yaco.es",
-                infourl : "http://www.yaco.es",
+                author : "Pablo Martin",
+                authorurl : "http://github.com/goinnn",
+                infourl : "https://github.com/goinnn",
                 version : tinymce.majorVersion + "." + tinymce.minorVersion
             };
         }
