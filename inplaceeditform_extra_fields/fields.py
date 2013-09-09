@@ -148,7 +148,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     def __init__(self, *args, **kwargs):
         super(AdaptorTinyMCEField, self).__init__(*args, **kwargs)
         self.widget_options = self.config and self.config.get('widget_options', {})
-        self.config['can_auto_save'] = 0
 
     @property
     def TinyMCE(self):
@@ -158,7 +157,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     def treatment_height(self, height, width=None):
         height = super(AdaptorTinyMCEField, self).treatment_height(height, width=width)
         if isinstance(height, string) and height.endswith('px'):
-            height = int(height[:-2])
+            height = float(height[:-2])
         return max(height, self.MIN_HEIGHT)
 
     def treatment_width(self, width, height=None):
@@ -169,7 +168,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
-        inplace_edit_auto_save = getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)
+        if 'autosave' in self.config:
+            inplace_edit_auto_save = int(self.config['autosave'])
+        else:
+            inplace_edit_auto_save = getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)
         tiny_mce_buttons = {
             '0': ['apply_inplace_edit', 'cancel_inplace_edit'],
             '1': ['undo', 'redo'],
@@ -206,7 +208,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             content_css = False
         content_js = [i for i in tiny_extra_media.get('css', [])]
         extra_mce_settings.update({'inplace_edit': True,
-                                   'inplace_edit_auto_save': getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False),
+                                   'inplace_edit_auto_save': inplace_edit_auto_save,
                                    'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
                                    'theme_advanced_statusbar_location': "none",
                                    'theme_advanced_toolbar_location': "external",
@@ -266,7 +268,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         if not 'width' in self.widget_options or not self.widget_options['width']:
             return result
 
-        total_width = int(self.widget_options['width'].replace('px', ''))
+        total_width = float(self.widget_options['width'].replace('px', ''))
         buttons, selectors = self._priorize_tinymce_buttons(buttons_priorized,
                                                             selectors_priorized,
                                                             button_width,
@@ -296,7 +298,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         return result
 
     def _priorize_tinymce_buttons(self, buttons, selectors, button_width=20, selector_width=80):
-        row_width = int(self.widget_options['width'].replace('px', ''))
+        row_width = float(self.widget_options['width'].replace('px', ''))
         total_width = row_width * 3
         used_width = 0
 
