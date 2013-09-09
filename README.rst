@@ -153,7 +153,7 @@ It's highly recommended that in your base.html you include the following CSS, to
 Testing
 =======
 
-You can test it with the `testing project of django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit/tree/master/testing>`_
+You can test it with the `testing project of django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit/tree/master/testing>`_ or with the `testing project of django-inplaceedit-bootstrap <https://github.com/goinnn/django-inplaceedit-bootstrap/tree/master/testing>`_ 
 
 
 Development
