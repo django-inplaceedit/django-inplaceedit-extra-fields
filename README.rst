@@ -1,8 +1,8 @@
 .. contents::
 
-==============================
-Inplace Edit Form Extra Fields
-==============================
+===============================
+django-inplaceedit-extra-fields
+===============================
 
 Information
 ===========
@@ -13,7 +13,7 @@ Information
 .. image:: https://pypip.in/d/django-inplaceedit-extra-fields/badge.png
     :target: https://pypi.python.org/pypi/django-inplaceedit-extra-fields
 
-Inplace Edit Form Extra Field is a Django application that adds other useful fields to `Inplace Edit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
+django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
 
 It is distributed under the terms of the `GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>`_.
@@ -40,7 +40,7 @@ Video Demo, of django-inplaceedit, `django-inplaceedit-extra-fields <http://pypi
 Installation
 ============
 
-After installing `django inplace edit egg`_
+After installing `django-inplaceedit egg`_
 
 
 .. _`django inplace edit egg`: https://django-inplaceedit.readthedocs.org/en/latest/install.html
@@ -98,13 +98,13 @@ Why these fields are not in django-inplaceedit?
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
-These fields depend on `Django Ajax Select (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
+These fields depend on `django-ajax-selects (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
 
 ::
 
     {% inplace_edit "content.field_name" adaptor="auto_fk", lookup="my_lookup" %}
 
-For more info, visit the `doc of ajax select <https://github.com/twidi/django-ajax-select/blob/master/ajax_select/docs.txt#L40>`_
+For more info, visit the `doc of django-ajax-selects <https://github.com/twidi/django-ajax-select/blob/master/ajax_select/docs.txt#L40>`_
 
 It is recomended you overwrite the following templates:
 
@@ -114,7 +114,7 @@ It is recomended you overwrite the following templates:
 AdaptorImageThumbnailField
 ==========================
 
-This field depends on `Sorl thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
+This field depends on `sorl-thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
 
 ::
 
@@ -127,7 +127,7 @@ It can help you, configure in your settings:
     THUMBNAIL_DEBUG = True
 
 
-For more info, visit the `doc of thumbnail <http://thumbnail.sorl.net/>`_
+For more info, visit the `doc of sorl-thumbnail <http://thumbnail.sorl.net/>`_
 
 
 AdaptorTinyMCEField
@@ -159,8 +159,8 @@ You can test it with the `testing project of django-inplaceedit <https://github.
 Development
 ===========
 
-You can get the leading edge version of inplaceedit-extra-fields by doing a checkout
+You can get the leading edge version of django-inplaceedit-extra-fields by doing a clone
 of its repository:
 
-  https://github.com/goinnn/django-inplaceedit-extra-fields
+  git clone git@github.com:goinnn/django-inplaceedit-extra-fields.git
 
