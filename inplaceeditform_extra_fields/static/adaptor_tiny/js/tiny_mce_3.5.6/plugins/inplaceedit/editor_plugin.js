@@ -55,12 +55,16 @@
         },
         saveInServer: function (ed) {
             var self = $.inplaceeditform;
+            var form = this.getIframe(ed).parents(self.formSelector);
+            if (form.data("ajaxTime")) {
+                return
+            }
             if (!ed) {
                 ed = this;
             }
             var isDirty = this.save(ed);
             if (isDirty) {
-                this.getIframe(ed).parents(self.formSelector).find(".apply").click();
+                form.find(".apply").click();
             } else {
                 this.cancel(ed);
             }
@@ -68,8 +72,12 @@
         cancel: function (ed) {
             var self = $.inplaceeditform;
             var that = this;
+            var form = this.getIframe(ed).parents(self.formSelector);
+            if (form.data("ajaxTime")) {
+                return
+            }
             setTimeout(function () {
-                that.getIframe(ed).parents(self.formSelector).find(".cancel").click();
+                form.find(".cancel").click();
             }, 0);
         },
         getInfo: function () {
