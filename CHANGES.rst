@@ -1,7 +1,8 @@
-0.2.0  (2013-09-??)
+0.2.0  (2013-09-10)
 ===================
 
-* 
+* Improvements in AdaptorTinyMCEField, and adapt the code to the new features of django-inplaceedit==1.2
+* Improvements in the README file
 
 0.1.1  (2013-09-06)
 ===================
