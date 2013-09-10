@@ -43,7 +43,7 @@ Installation
 After installing `django-inplaceedit egg`_
 
 
-.. _`django inplace edit egg`: https://django-inplaceedit.readthedocs.org/en/latest/install.html
+.. _`django-inplaceedit egg`: https://django-inplaceedit.readthedocs.org/en/latest/install.html
 
 
 In your settings.py
