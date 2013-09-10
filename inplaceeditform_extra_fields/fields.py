@@ -169,7 +169,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
         if 'autosave' in self.config:
-            inplace_edit_auto_save = int(self.config['autosave'])
+            inplace_edit_auto_save = bool(int(self.config['autosave']))
         else:
             inplace_edit_auto_save = getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)
         tiny_mce_buttons = {

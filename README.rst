@@ -33,7 +33,7 @@ Video Demo, of django-inplaceedit, `django-inplaceedit-extra-fields <http://pypi
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
-   :target: http://www.youtube.com/watch?v=_EjisXtMy_Y
+   :target: http://www.youtube.com/watch?v=_EjisXtMy_Y?t=34s
 
 
 

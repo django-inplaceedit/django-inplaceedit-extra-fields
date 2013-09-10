@@ -1,4 +1,5 @@
 (function ($) {
+    "use strict";
     tinymce.create("tinymce.plugins.InplaceEdit", {
         getIframe: function (ed) {
             return $("#" + ed.id + "_ifr");
@@ -39,25 +40,37 @@
             this.plugins.inplaceedit.cancel(this);
         },
         save: function (ed) {
+            var self = $.inplaceeditform;
+            var configTag = this.getIframe(ed).parents(self.formSelector).prev().find(self.configSelector);
             var isDirty = ed.isDirty();
+            if (configTag.length === 1) {
+                var config = configTag.attr();
+                var autoSave = self.methods.getOptBool(config, self.opts, "autoSave") && parseInt(config.can_auto_save);
+                isDirty = isDirty || !autoSave;
+            }
             if (isDirty) {
                 ed.save();
             }
             return isDirty;
         },
         saveInServer: function (ed) {
+            var self = $.inplaceeditform;
             if (!ed) {
                 ed = this;
             }
             var isDirty = this.save(ed);
             if (isDirty) {
-                this.getIframe(ed).parents(".inplaceeditform").find(".apply").click();
+                this.getIframe(ed).parents(self.formSelector).find(".apply").click();
             } else {
-                this.getIframe(ed).parents(".inplaceeditform").find(".cancel").click();
+                this.cancel(ed);
             }
         },
         cancel: function (ed) {
-            this.getIframe(ed).parents(".inplaceeditform").find(".cancel").click();
+            var self = $.inplaceeditform;
+            var that = this;
+            setTimeout(function () {
+                that.getIframe(ed).parents(self.formSelector).find(".cancel").click();
+            }, 0);
         },
         getInfo: function () {
             return {
