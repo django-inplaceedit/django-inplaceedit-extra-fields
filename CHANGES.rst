@@ -2,6 +2,7 @@
 ===================
 
 * Fix an error in AdaptorTinyMCEField when the inplace edit item was very little (its width was very little)
+* Update the tinyMCE to last version (3.X)
 
 0.2.0  (2013-09-10)
 ===================
