@@ -1,7 +1,7 @@
 0.3.0  (2013-09-??)
 ===================
 
-* AdaptorTinyMCEField use tinyMCE 4.X
+* AdaptorTinyMCEField now use **tinyMCE 4.X**
 
 
 0.2.1  (2013-09-15)

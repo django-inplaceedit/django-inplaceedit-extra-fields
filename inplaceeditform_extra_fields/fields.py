@@ -181,12 +181,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         return mark_safe(super(AdaptorTinyMCEField, self).render_value(field_name=field_name))
 
     def render_value(self, field_name=None):
-        value = self._render_value(field_name)
-        classes = ' '.join(self.classes.split(' ')[1:])
-        return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value.html',
-                                {'value': value,
-                                 'classes': classes,
-                                 'adaptor': self})
+        return self._render_value(field_name)
 
     def render_value_edit(self):
         value = self._render_value()
