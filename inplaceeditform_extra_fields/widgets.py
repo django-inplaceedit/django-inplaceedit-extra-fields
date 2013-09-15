@@ -28,7 +28,7 @@ from inplaceeditform.commons import get_static_url
 def get_tinyMCE_js():
     if hasattr(settings, 'INPLACE_TINYMCE_JS'):
         return settings.INPLACE_TINYMCE_JS
-    return get_static_url(subfix='inplaceeditform_extra_fields') + "adaptor_tiny/js/tiny_mce_3.5.6/tiny_mce.js"
+    return get_static_url(subfix='inplaceeditform_extra_fields') + "adaptor_tiny/js/tiny_mce_3.5.8/tiny_mce.js"
 
 
 class TinyMCE(widgets.Textarea):
