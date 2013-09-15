@@ -1,3 +1,8 @@
+0.2.1  (2013-09-15)
+===================
+
+* Fix an error in AdaptorTinyMCEField when the inplace edit item was very little (its width was very little)
+
 0.2.0  (2013-09-10)
 ===================
 

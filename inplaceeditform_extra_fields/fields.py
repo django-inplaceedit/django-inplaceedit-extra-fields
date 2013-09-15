@@ -280,7 +280,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             theme_advanced_buttons1 = ','.join(buttons_selectors)
             result['theme_advanced_buttons1'] = theme_advanced_buttons1
         elif total_width * 2 >= buttons_width + selectors_width:  # two rows
-            aux_index = total_width / button_width
+            aux_index = int(total_width / button_width) - 2
             if total_width >= buttons_width:
                 result['theme_advanced_buttons1'] = ','.join(buttons)
                 result['theme_advanced_buttons2'] = ','.join(selectors)
@@ -289,10 +289,10 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
                 result['theme_advanced_buttons2'] = ','.join(selectors + buttons[aux_index:])
 
         else:
-            aux_index = total_width / button_width
+            aux_index = int(total_width / button_width) - 2
             result['theme_advanced_buttons1'] = ','.join(buttons[:aux_index])
             result['theme_advanced_buttons2'] = ','.join(buttons[aux_index:])
-            num_selectors = total_width / selector_width
+            num_selectors = int(total_width / selector_width)
             result['theme_advanced_buttons3'] = ','.join(selectors[:num_selectors])
 
         return result
