@@ -90,7 +90,7 @@ class TinyMCE(widgets.Textarea):
         final_attrs = self.build_attrs(attrs, name=name)
         self.mce_settings['elements'] = "id_%s" % name
         mce_json = JSONEncoder().encode(self.mce_settings).replace("\"function", "function").replace("}\"", "}")
-        return mark_safe(u'''<span%s>%s</span>
+        return mark_safe(u'''<div%s>%s</div>
                 <script type="text/javascript">
                     tinyMCE.init(%s);
                     setTimeout(function () {
