@@ -65,14 +65,14 @@ class TinyMCE(widgets.Textarea):
         if width < 700:
             toolbar_items = self.mce_settings['toolbar'].split(' | ')
             if width < 700 and width > 350:
-                toolbar1 = ' | '.join(toolbar_items[:len(toolbar_items)/2])
-                toolbar2 = ' | '.join(toolbar_items[len(toolbar_items)/2:])
+                toolbar1 = ' | '.join(toolbar_items[:int(len(toolbar_items) / 2)])
+                toolbar2 = ' | '.join(toolbar_items[int(len(toolbar_items) / 2):])
                 self.mce_settings['toolbar1'] = toolbar1
                 self.mce_settings['toolbar2'] = toolbar2
             if width < 350:
-                toolbar1 = ' | '.join(toolbar_items[:len(toolbar_items)/3])
-                toolbar2 = ' | '.join(toolbar_items[len(toolbar_items)/3:2*len(toolbar_items)/3])
-                toolbar3 = ' | '.join(toolbar_items[2*len(toolbar_items)/3:])
+                toolbar1 = ' | '.join(toolbar_items[:int(len(toolbar_items) / 3)])
+                toolbar2 = ' | '.join(toolbar_items[int(len(toolbar_items) / 3):int(2 * len(toolbar_items) / 3)])
+                toolbar3 = ' | '.join(toolbar_items[int(2 * len(toolbar_items) / 3):])
                 self.mce_settings['toolbar1'] = toolbar1
                 self.mce_settings['toolbar2'] = toolbar2
                 self.mce_settings['toolbar3'] = toolbar3
@@ -90,7 +90,7 @@ class TinyMCE(widgets.Textarea):
         final_attrs = self.build_attrs(attrs, name=name)
         self.mce_settings['elements'] = "id_%s" % name
         mce_json = JSONEncoder().encode(self.mce_settings).replace("\"function", "function").replace("}\"", "}")
-        return mark_safe(u'''<div%s>%s</div>
+        return mark_safe(u'''<span%s>%s</span>
                 <script type="text/javascript">
                     tinyMCE.init(%s);
                     setTimeout(function () {

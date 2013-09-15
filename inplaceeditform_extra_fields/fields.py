@@ -159,12 +159,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             config['fieldtypes'] = 'div.mce-content-body'
             config['focuswhenediting'] = "0"
             if not 'autosavetiny' in config:
-                auto_save = config.get('autoSave', None)
+                auto_save = config.get('autoSave', None) or config.get('autosave', None)
                 if auto_save:
                     config['autosavetiny'] = str(int(auto_save))
                 else:
                     config['autosavetiny'] = str(int(getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)))
             config['autosave'] = "0"
+            config['autoSave'] = "0"
         return config
 
     def get_field(self):
