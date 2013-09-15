@@ -1,8 +1,26 @@
 {% extends "inplaceeditform/render_media_field.html" %}
 
+
 {% block media %}
+    {% comment %}Do not call to the supper{% endcomment %}
     <link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}adaptor_tiny/css/adaptor_tiny.css" />
-    {% block comment %}Do not call to the supper{% endblock %}
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function () {
+                function tinyGetValue(form, field_id) {
+                    return form.find("#" + field_id).html();
+                }
+                function tinyFinish(button) {
+                    editor = $(button).data("editor");
+                    if (editor) {
+                        $("#" + editor.theme.panel._id).remove();
+                        $("[role=menu]").remove();
+                    }
+                }
+                $(".applyTinyMCE").data("getValue", tinyGetValue);
+                $(".applyTinyMCE").data("applyFinish", tinyFinish);
+                $(".cancelTinyMCE").data("cancelFinish", tinyFinish);
+        });
+        })(jQuery);
+    </script>
 {% endblock %}
-
-

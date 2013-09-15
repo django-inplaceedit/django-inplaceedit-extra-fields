@@ -18,17 +18,15 @@ import sys
 from django.conf import settings
 from django.forms import widgets
 from django.forms.util import flatatt
-from django.utils.html import escape
+from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.simplejson import JSONEncoder
 
-from inplaceeditform.commons import get_static_url
-
 
 def get_tinyMCE_js():
-    if hasattr(settings, 'INPLACE_TINYMCE_JS'):
-        return settings.INPLACE_TINYMCE_JS
-    return get_static_url(subfix='inplaceeditform_extra_fields') + "adaptor_tiny/js/tiny_mce_3.5.8/tiny_mce.js"
+    return getattr(settings,
+                   'INPLACE_TINYMCE_JS',
+                   '//tinymce.cachefly.net/4.0/tinymce.min.js')
 
 
 class TinyMCE(widgets.Textarea):
@@ -38,45 +36,50 @@ class TinyMCE(widgets.Textarea):
     You can customize the mce_settings by overwriting instance mce_settings,
     or add extra options using update_settings
     """
-    mce_settings = dict(
-        mode="exact",
-        theme="advanced",
-        width="100%",
-        height=400,
-        button_tile_map=True,
-        plugins="preview,paste,inplaceedit,table",
-        theme_advanced_disable="",
-        theme_advanced_buttons1="undo,redo,separator,cut,copy,paste,pastetext,pasteword,separator,preview,separator,bold,italic,underline,justifyleft,justifycenter,justifyright,bullist,numlist,outdent,indent",
-        theme_advanced_buttons2="fontselect,fontsizeselect,link,code",
-        theme_advanced_buttons3="",
-        theme_advanced_buttons4="",
-        theme_advanced_toolbar_location="top",
-        theme_advanced_toolbar_align="left",
-        extended_valid_elements="hr[class|width|size|noshade],font[face|size|color|style],span[class|align|style]",
-        file_browser_callback="mcFileManager.filebrowserCallBack",
-        theme_advanced_resize_horizontal=True,
-        theme_advanced_resizing=True,
-        theme_advanced_statusbar_location="bottom",
-        apply_source_formatting=False,
-        editor_deselector="mceNoEditor",
-    )
 
-    class Media:  # this is for django admin interface
+    mce_settings = dict(relative_urls=False,
+                        theme="modern",
+                        inline=True,
+                        layout="stack",
+                        fixed_toolbar_container=True,
+                        strict_loading_mode=1,
+                        plugins=("advlist autolink lists link image charmap anchor "
+                                 "searchreplace fullscreen insertdatetime media "
+                                 "contextmenu paste"),
+                        toolbar=("undo redo | bold italic underline strikethrough | "
+                                 "styleselect | alignleft aligncenter alignright alignjustify | "
+                                 "bullist numlist outdent indent | link image"),
+                        mode="exact")
+
+    class Media:
         js = (get_tinyMCE_js(),)
 
-    def __init__(self, extra_mce_settings={}, *args, **kwargs):
+    def __init__(self, extra_mce_settings=None,
+                 config=None, width=None, *args, **kwargs):
         super(TinyMCE, self).__init__(*args, **kwargs)
-        # copy the settings so each instance of the widget can modify them
-        # without changing the other widgets (e.g. instance vs class variables)
+        extra_mce_settings = extra_mce_settings or {}
+        config = config or {}
         self.mce_settings = TinyMCE.mce_settings.copy()
-        self.mce_settings['spellchecker_languages'] = getattr(settings, 'TINYMCE_LANG_SPELLCHECKER', '+English=en')
+        self.mce_settings['setup'] = ''.join(render_to_string('inplaceeditform_extra_fields/adaptor_tiny/setup.js', config).splitlines())
         self.mce_settings['language'] = getattr(settings, 'TINYMCE_LANG', 'en')
-        self.mce_settings.update(extra_mce_settings)
+        if width < 700:
+            toolbar_items = self.mce_settings['toolbar'].split(' | ')
+            if width < 700 and width > 350:
+                toolbar1 = ' | '.join(toolbar_items[:len(toolbar_items)/2])
+                toolbar2 = ' | '.join(toolbar_items[len(toolbar_items)/2:])
+                self.mce_settings['toolbar1'] = toolbar1
+                self.mce_settings['toolbar2'] = toolbar2
+            if width < 350:
+                toolbar1 = ' | '.join(toolbar_items[:len(toolbar_items)/3])
+                toolbar2 = ' | '.join(toolbar_items[len(toolbar_items)/3:2*len(toolbar_items)/3])
+                toolbar3 = ' | '.join(toolbar_items[2*len(toolbar_items)/3:])
+                self.mce_settings['toolbar1'] = toolbar1
+                self.mce_settings['toolbar2'] = toolbar2
+                self.mce_settings['toolbar3'] = toolbar3
+            del self.mce_settings['toolbar']
 
-    def update_settings(self, custom):
-        return_dict = self.mce_settings.copy()
-        return_dict.update(custom)
-        return return_dict
+        self.mce_settings.update(extra_mce_settings)
+        self.mce_settings.update(config)
 
     def render(self, name, value, attrs=None):
         if value is None:
@@ -86,16 +89,14 @@ class TinyMCE(widgets.Textarea):
             value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs, name=name)
         self.mce_settings['elements'] = "id_%s" % name
-        if 'functions' in self.mce_settings:
-            functions = self.mce_settings['functions']
-            del self.mce_settings['functions']
-        else:
-            functions = ''
-        mce_json = JSONEncoder().encode(self.mce_settings)
-        return mark_safe(u'''<textarea%s>%s</textarea>
+        mce_json = JSONEncoder().encode(self.mce_settings).replace("\"function", "function").replace("}\"", "}")
+        return mark_safe(u'''<div%s>%s</div>
                 <script type="text/javascript">
-                    %s
-                    tinyMCE.init(%s)</script>''' % (flatatt(final_attrs),
-                                                    escape(value),
-                                                    functions,
-                                                    mce_json))
+                    tinyMCE.init(%s);
+                    setTimeout(function () {
+                        $("#%s").focus();
+                    }, 500);
+                </script>''' % (flatatt(final_attrs),
+                                value,
+                                mce_json,
+                                self.mce_settings['elements']))

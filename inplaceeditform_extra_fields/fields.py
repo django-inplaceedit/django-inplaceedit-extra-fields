@@ -135,8 +135,6 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     #code of: http://dev.merengueproject.org/browser/trunk/merengueproj/merengue/uitools/fields.py?rev=5352#L65
 
-    MIN_HEIGHT = 35
-
     @property
     def name(self):
         return 'tiny'
@@ -154,75 +152,29 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         from inplaceeditform_extra_fields.widgets import TinyMCE
         return TinyMCE
 
-    def treatment_height(self, height, width=None):
-        height = super(AdaptorTinyMCEField, self).treatment_height(height, width=width)
-        if isinstance(height, string) and height.endswith('px'):
-            height = float(height[:-2])
-        return max(height, self.MIN_HEIGHT)
-
-    def treatment_width(self, width, height=None):
-        height = super(AdaptorTinyMCEField, self).treatment_width(width, height=width)
-        if isinstance(height, string) and height.endswith('px'):
-            width = height[:-2]
-        return width
+    @classmethod
+    def get_config(self, request, **kwargs):
+        config = super(AdaptorTinyMCEField, self).get_config(request, **kwargs)
+        if not request.is_ajax():
+            config['fieldtypes'] = 'div.mce-content-body'
+            config['focuswhenediting'] = "0"
+            if not 'autosavetiny' in config:
+                auto_save = config.get('autoSave', None)
+                if auto_save:
+                    config['autosavetiny'] = str(int(auto_save))
+                else:
+                    config['autosavetiny'] = str(int(getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)))
+            config['autosave'] = "0"
+        return config
 
     def get_field(self):
         field = super(AdaptorTinyMCEField, self).get_field()
-        if 'autosave' in self.config:
-            inplace_edit_auto_save = bool(int(self.config['autosave']))
-        else:
-            inplace_edit_auto_save = getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)
-        tiny_mce_buttons = {
-            '0': ['apply_inplace_edit', 'cancel_inplace_edit'],
-            '1': ['undo', 'redo'],
-            '2': ['bold', 'italic', 'underline', 'justifyleft',
-                  'justifycenter', 'justifyright', 'justifyfull'],
-            '3': ['bullist', 'numlist', 'outdent', 'indent'],
-        }
-        if not inplace_edit_auto_save:
-            tiny_mce_buttons['4'] = ['cut', 'copy', 'paste', 'pasteword']
-            tiny_mce_buttons['5'] = ['forecolor', 'link', 'code', 'internal_links']
-            tiny_mce_buttons['6'] = ['iframes', 'file', 'removeformat']
-            tiny_mce_selectors = {'0': ['fontsizeselect'],
-                                  '1': ['formatselect', 'fontselect'],
-                                  '2': ['styleselect']}
-        else:
-            tiny_mce_selectors = {}
         extra_mce_settings = {}
-        extra_mce_settings.update(self._order_tinymce_buttons(tiny_mce_buttons, tiny_mce_selectors))
-        tiny_extra_media = getattr(settings, 'TINYMCE_EXTRA_MEDIA', {})
-        content_css = [i for i in tiny_extra_media.get('css', [])]
-        css_page = self.config.get('__css', '').split(',')
-        content_css = ["%s%s" % (get_static_url(), css) for css in content_css]
-        content_css += css_page
-        content_css = ','.join(content_css)
-        include_content_css = getattr(settings, 'TINYMCE_INCLUDE_CONTENT_CSS', False)
-        if content_css:
-            js_css = ["ed.dom.loadCSS('%s')" % css for css in content_css.split(',')]
-            load_css = """function loadMyCSS(ed) {
-                %s
-            }""" % ';'.join(js_css)
-            extra_mce_settings['init_instance_callback'] = "loadMyCSS"
-            extra_mce_settings['functions'] = load_css
-        if not content_css or include_content_css:
-            content_css = False
-        content_js = [i for i in tiny_extra_media.get('css', [])]
-        extra_mce_settings.update({'inplace_edit': True,
-                                   'inplace_edit_auto_save': inplace_edit_auto_save,
-                                   'theme_advanced_blockformats': 'h1,h2,h4,blockquote',
-                                   'theme_advanced_statusbar_location': "none",
-                                   'theme_advanced_toolbar_location': "external",
-                                   'theme_advanced_resizing': False,
-                                   'theme_advanced_resize_horizontal': False,
-                                   'content_css': False,
-                                   'content_js': content_js})
-        if 'height' in self.widget_options:
-            extra_mce_settings['height'] = self.treatment_height(self.widget_options['height'], self.widget_options.get('width', None))
-            extra_mce_settings['min_height'] = extra_mce_settings['height']
-        if 'width' in self.widget_options:
-            extra_mce_settings['width'] = self.treatment_width(self.widget_options['width'], self.widget_options.get('height', None))
+        width = float(self.widget_options.get('width', '0').replace('px', ''))
         extra_mce_settings.update(getattr(settings, 'INPLACE_EXTRA_MCE', {}))
-        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings)
+        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings,
+                                          config=self.config,
+                                          width=width)
         return field
 
     def _render_value(self, field_name=None):
@@ -238,6 +190,8 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
 
     def render_value_edit(self):
         value = self._render_value()
+        if not value:
+            value = self.empty_value()
         return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value_edit.html',
                                 {'value': value,
                                  'adaptor': self,
@@ -256,63 +210,3 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         context.update(extra_context)
         return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
                                                                    extra_context=context)
-
-    def _order_tinymce_buttons(self, buttons_priorized, selectors_priorized,
-                               button_width=20, selector_width=80):
-
-        result = {
-            'theme_advanced_buttons1': '',
-            'theme_advanced_buttons2': '',
-            'theme_advanced_buttons3': '',
-        }
-        if not 'width' in self.widget_options or not self.widget_options['width']:
-            return result
-
-        total_width = float(self.widget_options['width'].replace('px', ''))
-        buttons, selectors = self._priorize_tinymce_buttons(buttons_priorized,
-                                                            selectors_priorized,
-                                                            button_width,
-                                                            selector_width)
-        buttons_width = len(buttons) * button_width
-        selectors_width = len(selectors) * selector_width
-        if total_width >= buttons_width + selectors_width:  # one row
-            buttons_selectors = buttons + selectors
-            theme_advanced_buttons1 = ','.join(buttons_selectors)
-            result['theme_advanced_buttons1'] = theme_advanced_buttons1
-        elif total_width * 2 >= buttons_width + selectors_width:  # two rows
-            aux_index = int(total_width / button_width) - 2
-            if total_width >= buttons_width:
-                result['theme_advanced_buttons1'] = ','.join(buttons)
-                result['theme_advanced_buttons2'] = ','.join(selectors)
-            else:
-                result['theme_advanced_buttons1'] = ','.join(buttons[:aux_index])
-                result['theme_advanced_buttons2'] = ','.join(selectors + buttons[aux_index:])
-
-        else:
-            aux_index = int(total_width / button_width) - 2
-            result['theme_advanced_buttons1'] = ','.join(buttons[:aux_index])
-            result['theme_advanced_buttons2'] = ','.join(buttons[aux_index:])
-            num_selectors = int(total_width / selector_width)
-            result['theme_advanced_buttons3'] = ','.join(selectors[:num_selectors])
-
-        return result
-
-    def _priorize_tinymce_buttons(self, buttons, selectors, button_width=20, selector_width=80):
-        row_width = float(self.widget_options['width'].replace('px', ''))
-        total_width = row_width * 3
-        used_width = 0
-
-        buttons_list = []
-        selectors_list = []
-        # we assume that we have more priority levels on buttons
-        buttons_keys = sorted(buttons.keys())
-        for key in buttons_keys:
-            if (used_width + button_width * len(buttons[key])) < total_width:
-                buttons_list += buttons[key]
-                used_width += button_width * len(buttons[key])
-            if key in selectors:
-                if (used_width + selector_width * len(selectors[key])) < total_width:
-                    selectors_list += selectors[key]
-                    used_width += selector_width * len(selectors[key])
-
-        return buttons_list, selectors_list
