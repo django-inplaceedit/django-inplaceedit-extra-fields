@@ -21,7 +21,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `Django Inplace Edit (>= 1.0.0) <http://pypi.python.org/pypi/django-inplaceedit/>`_
+ * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.2.1)
 
 And other packages, depending on which fields you want to use (see below).
 
@@ -29,7 +29,7 @@ And other packages, depending on which fields you want to use (see below).
 Demo (this video use a very old version of django-inplaceedit and django-inplaceedit-extra-fields)
 ==================================================================================================
 
-Video Demo, of `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit>`_, django-inplaceedit-extra-fields and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+Video Demo, of `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit>`_ django-inplaceedit-extra-fields and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
