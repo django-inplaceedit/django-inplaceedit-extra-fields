@@ -5,7 +5,7 @@ function (editor) {
        $('#' + editor.id).parents(self.formSelector).find('.cancel').data('editor', editor);
     }, 300);
     var value = $('#' + editor.id).html();
-    var form = $('#' + editor.id).parents('form');
+    var form = $('#' + editor.id).parents(self.formSelector);
     {% ifequal autosavetiny '1' %}
         editor.on('blur', function () {
             if (editor.isDirty()) {

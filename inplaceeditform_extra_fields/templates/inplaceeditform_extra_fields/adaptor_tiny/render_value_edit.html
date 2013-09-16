@@ -1,6 +1,4 @@
 {{ value }}
-{% if not is_ajax %}
-  {% if field %}
+{% if field %}
     {{ field.field.widget.media }}
-  {% endif %}
 {% endif %}

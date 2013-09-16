@@ -64,12 +64,20 @@ class AdaptorAutoCompleteProvider(object):
 
     def render_value_edit(self):
         value = super(AdaptorAutoCompleteProvider, self).render_value_edit()
-        if self.install_ajax_select():
+        is_ajax = self.request.is_ajax()
+        if not is_ajax and self.install_ajax_select():
+            if not getattr(self.request, 'inplace_js_rendered', None):
+                if getattr(self.request, 'inplace_js_extra', None) is None:
+                    self.request.inplace_js_extra = ''
+                scripts = render_to_string("inplaceeditform_extra_fields/adaptor_autocomplete/render_js.html",
+                                           {'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')})
+                if not scripts in self.request.inplace_js_extra:
+                    self.request.inplace_js_extra += scripts
+                return value
             return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value_edit.html',
                                     {'value': value,
                                      'STATIC_URL': get_static_url(),
-                                     'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects'),
-                                     'is_ajax': self.request.is_ajax()})
+                                     'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')})
         return super(AdaptorAutoCompleteProvider, self).render_value_edit()
 
 
@@ -185,14 +193,24 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         return self._render_value(field_name)
 
     def render_value_edit(self):
+        field = self.get_field()
         value = self._render_value()
+        is_ajax = self.request.is_ajax()
         if not value:
             value = self.empty_value()
+        if is_ajax:
+            return value
+        if not getattr(self.request, 'inplace_js_rendered', None) and not is_ajax:
+            if getattr(self.request, 'inplace_js_extra', None) is None:
+                self.request.inplace_js_extra = ''
+            scripts = ''.join(field.field.widget.media.render_js())
+            if not scripts in self.request.inplace_js_extra:
+                self.request.inplace_js_extra += scripts
+            return value
         return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value_edit.html',
                                 {'value': value,
                                  'adaptor': self,
-                                 'field': self.get_field(),
-                                 'is_ajax': self.request.is_ajax()})
+                                 'field': self.get_field()})
 
     def render_field(self, template_name="inplaceeditform_extra_fields/adaptor_tiny/render_field.html", extra_context=None):
         return super(AdaptorTinyMCEField, self).render_field(template_name=template_name,
