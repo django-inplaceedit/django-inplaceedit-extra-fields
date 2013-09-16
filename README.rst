@@ -13,7 +13,7 @@ Information
 .. image:: https://pypip.in/d/django-inplaceedit-extra-fields/badge.png
     :target: https://pypi.python.org/pypi/django-inplaceedit-extra-fields
 
-django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
+django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ .
 
 It is distributed under the terms of the `GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>`_.
@@ -29,7 +29,7 @@ And other packages, depending on which fields you want to use (see below).
 Demo (this video use a very old version of django-inplaceedit and django-inplaceedit-extra-fields)
 ==================================================================================================
 
-Video Demo, of `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit>`_ django-inplaceedit-extra-fields and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+Video Demo, of `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_, django-inplaceedit-extra-fields and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
