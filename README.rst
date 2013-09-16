@@ -143,6 +143,11 @@ AdaptorTinyMCEField
     We use tinyMCE (version 4.0) without changes, if you want to use another version (4.X) of tinyMCE set INPLACE_TINYMCE_JS in your settings
 
 
+::
+
+    INPLACE_TINYMCE_JS = '/my/path/of/tinyMCE'
+
+
 Testing
 =======
 
