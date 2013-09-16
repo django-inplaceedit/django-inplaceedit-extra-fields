@@ -1,8 +1,8 @@
-0.3.0  (2013-09-??)
+0.3.0  (2013-09-16)
 ===================
 
 * AdaptorTinyMCEField now use **tinyMCE 4.X**
-
+* Not the AdaptorTinyMCEField, AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField use the static file recolector, new in django-inplaceedit==1.2.1
 
 0.2.1  (2013-09-15)
 ===================

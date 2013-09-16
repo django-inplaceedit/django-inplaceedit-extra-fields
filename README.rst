@@ -138,16 +138,9 @@ AdaptorTinyMCEField
     {% inplace_edit "content.field_name" adaptor="tiny" %}
 
 
-It's highly recommended that in your base.html you include the following CSS, to normalize the first element of the iframe
-
-
-::
-
-    <link rel="stylesheet" href="{{ STATIC_URL }}adaptor_tiny/css/block_normalize.css"> 
-
 .. note:: 
 
-    We use tinyMCE (version 3.5.6) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/master/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.6/plugins/inplaceedit>`_
+    We use tinyMCE (version 4.0) without changes, if you want to use another version (4.X) of tinyMCE set INPLACE_TINYMCE_JS in your settings
 
 
 Testing
