@@ -6,11 +6,11 @@ function (editor) {
     }, 300);
     var value = $('#' + editor.id).html();
     var form = $('#' + editor.id).parents(self.formSelector);
-    {% ifequal autosavetiny '1' %}
+    {% ifequal autosave '1' %}
         editor.on('blur', function () {
             if (editor.isDirty()) {
                 self.methods.bind(self.methods.autoSaveCallBack, {'oldValue': value,
-                                                              'tag': $('#' + editor.id)})();
+                                                                  'tag': $('#' + editor.id)})();
             } else {
                 form.find('.cancel').click();
             }
@@ -23,7 +23,7 @@ function (editor) {
     {% ifequal add_buttons '1' %}
         editor.addMenuItem('apply', {
             text: 'Apply',
-            context: 'edit',
+            context: '{{ menubar_item }}',
             onclick: function() {
                 if (form.data('ajaxTime')) {
                     return
@@ -33,7 +33,7 @@ function (editor) {
         });
         editor.addMenuItem('cancel', {
             text: 'Cancel',
-            context: 'edit',
+            context: '{{ menubar_item }}',
             onclick: function() {
                 if (form.data('ajaxTime')) {
                     return

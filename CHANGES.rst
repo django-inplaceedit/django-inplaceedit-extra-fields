@@ -1,3 +1,9 @@
+0.4.1  (2013-09-17)
+===================
+
+* Improvements in AdaptorSimpleTinyMCEField and AdaptorTinyMCEField
+
+
 0.4.0  (2013-09-17)
 ===================
 

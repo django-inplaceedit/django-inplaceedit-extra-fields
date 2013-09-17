@@ -162,17 +162,21 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
     def get_config(self, request, **kwargs):
         config = super(AdaptorTinyMCEField, self).get_config(request, **kwargs)
         if not request.is_ajax():
-            config['fieldtypes'] = 'div.mce-content-body'
-            config['focuswhenediting'] = "0"
-            config['add_buttons'] = "1"
-            if not 'autosavetiny' in config:
-                auto_save = config.get('autoSave', None) or config.get('autosave', None)
-                if auto_save:
-                    config['autosavetiny'] = str(int(auto_save))
-                else:
-                    config['autosavetiny'] = str(int(getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)))
-            config['autosave'] = "0"
-            config['autoSave'] = "0"
+            config['can_auto_save'] = '0'
+            if not 'menubar_item' in config:
+                config['menubar_item'] = 'edit'
+            if not 'fieldtypes' in config:
+                config['fieldtypes'] = 'div.mce-content-body'
+            if not 'focuswhenediting' in config:
+                config['focuswhenediting'] = "0"
+            if not 'add_buttons' in config:
+                config['add_buttons'] = "1"
+            auto_save = config.get('autoSave', None) or config.get('autosave', None)
+            if auto_save:
+                config['autosave'] = str(int(auto_save))
+            else:
+                config['autosave'] = str(int(getattr(settings, 'INPLACEEDIT_AUTO_SAVE', False)))
+            config['autoSave'] = config['autosave']
         return config
 
     def get_field(self):
@@ -233,10 +237,12 @@ class AdaptorSimpleTinyMCEField(AdaptorTinyMCEField):
 
     @classmethod
     def get_config(self, request, **kwargs):
+        init_add_buttons = kwargs and 'add_buttons' in kwargs or False
         config = super(AdaptorSimpleTinyMCEField, self).get_config(request, **kwargs)
         if not request.is_ajax():
-            config['add_buttons'] = str(int(not int(config['autosavetiny'])))
-            if config['add_buttons'] == '0':
+            if not init_add_buttons:
+                config['add_buttons'] = str(int(not int(config['autosave'])))
+            if config['add_buttons'] == '0' and not 'menubar' in config:
                 config['menubar'] = '0'
         return config
 
