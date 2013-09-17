@@ -142,12 +142,13 @@ AdaptorTinyMCEField
 
     We use tinyMCE 4.0 without changes (from django-inplaceedit-extra-fields==0.3.0), if you want to use another version (4.X) of tinyMCE set INPLACE_TINYMCE_JS in your settings.
 
-    If you want to use a tinyMCE 3.X, please use django-inplaceedit-extra-fields==0.2.1
-
 
 ::
 
     INPLACE_TINYMCE_JS = '/my/path/of/tinyMCE'
+
+
+If you want to use a tinyMCE 3.X, please use `django-inplaceedit-extra-fields==0.2.1 <http://pypi.python.org/pypi/django-inplaceedit-extra-fields/0.2.1>`_
 
 
 Testing
