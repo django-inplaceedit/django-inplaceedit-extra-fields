@@ -98,7 +98,7 @@ Why these fields are not in django-inplaceedit?
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
-These fields depend on `django-ajax-selects (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/>`_. You have to create a channel (lookup)
+These fields depend on `django-ajax-selects (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/1.2.5>`_. You have to create a channel (lookup)
 
 ::
 
@@ -114,7 +114,7 @@ It is recomended you overwrite the following templates:
 AdaptorImageThumbnailField
 ==========================
 
-This field depends on `sorl-thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/>`_. You just need to specify the thumb size.
+This field depends on `sorl-thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/11.12>`_. You just need to specify the thumb size.
 
 ::
 
@@ -161,7 +161,7 @@ Development
 ===========
 
 You can get the leading edge version of django-inplaceedit-extra-fields by doing a clone
-of its repository:
+of its repository::
 
   git clone git@github.com:goinnn/django-inplaceedit-extra-fields.git
 
