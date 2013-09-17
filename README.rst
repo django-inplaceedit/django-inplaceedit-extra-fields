@@ -148,7 +148,7 @@ AdaptorTinyMCEField
     INPLACE_TINYMCE_JS = '/my/path/of/tinyMCE'
 
 
-If you want to use a tinyMCE 3.X, please use `django-inplaceedit-extra-fields==0.2.1 <http://pypi.python.org/pypi/django-inplaceedit-extra-fields/0.2.1>`_
+If you want to use a tinyMCE 3.X, please use `django-inplaceedit-extra-fields==0.2.3 <http://pypi.python.org/pypi/django-inplaceedit-extra-fields/0.2.3>`_
 
 
 Testing
