@@ -13,7 +13,7 @@ Information
 .. image:: https://pypip.in/d/django-inplaceedit-extra-fields/badge.png
     :target: https://pypi.python.org/pypi/django-inplaceedit-extra-fields
 
-django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit>`_.
+django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ .
 
 It is distributed under the terms of the `GNU Lesser General Public
 License <http://www.gnu.org/licenses/lgpl.html>`_.
@@ -21,7 +21,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `Django Inplace Edit (>= 1.0.0) <http://pypi.python.org/pypi/django-inplaceedit/>`_
+ * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.2.2)
 
 And other packages, depending on which fields you want to use (see below).
 
@@ -29,7 +29,7 @@ And other packages, depending on which fields you want to use (see below).
 Demo (this video use a very old version of django-inplaceedit and django-inplaceedit-extra-fields)
 ==================================================================================================
 
-Video Demo, of django-inplaceedit, `django-inplaceedit-extra-fields <http://pypi.python.org/pypi/django-inplaceedit-extra-fields>`_ and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
+Video Demo, of `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_, django-inplaceedit-extra-fields and `django-inlinetrans <http://pypi.python.org/pypi/django-inlinetrans>`_ (Set full screen mode to view it correctly)
 
 
 .. image:: https://github.com/Yaco-Sistemas/django-inplaceedit/raw/master/video-frame.png
@@ -108,8 +108,8 @@ For more info, visit the `doc of django-ajax-selects <https://github.com/twidi/d
 
 It is recomended you overwrite the following templates:
 
- * `inc.css_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html>`_
- * `inc.js_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html>`_
+ * `inc.css_library.html <https://github.com/goinnn/django-inplaceedit-extra-fields/blob/tiny3.X/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html>`_
+ * `inc.js_library.html <https://github.com/goinnn/django-inplaceedit-extra-fields/blob/tiny3.X/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html>`_
 
 AdaptorImageThumbnailField
 ==========================
@@ -147,7 +147,7 @@ It's highly recommended that in your base.html you include the following CSS, to
 
 .. note:: 
 
-    We use tinyMCE (version 3.5.6) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/master/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.6/plugins/inplaceedit>`_
+    We use tinyMCE (version 3.5.8) without changes, except we have added a `inplaceedit plugin <https://github.com/goinnn/django-inplaceedit-extra-fields/tree/tiny3.X/inplaceeditform_extra_fields/static/adaptor_tiny/js/tiny_mce_3.5.8/plugins/inplaceedit>`_
 
 
 Testing
@@ -163,4 +163,5 @@ You can get the leading edge version of django-inplaceedit-extra-fields by doing
 of its repository:
 
   git clone git@github.com:goinnn/django-inplaceedit-extra-fields.git
+  git checkout tiny3.X
 
