@@ -20,24 +20,26 @@ function (editor) {
             return false;
         });
     {% endifequal %}
-    editor.addMenuItem('apply', {
-        text: 'Apply',
-        context: 'edit',
-        onclick: function() {
-            if (form.data('ajaxTime')) {
-                return
+    {% ifequal add_buttons '1' %}
+        editor.addMenuItem('apply', {
+            text: 'Apply',
+            context: 'edit',
+            onclick: function() {
+                if (form.data('ajaxTime')) {
+                    return
+                }
+                form.find('.apply').click();
             }
-            form.find('.apply').click();
-        }
-    });
-    editor.addMenuItem('cancel', {
-        text: 'Cancel',
-        context: 'edit',
-        onclick: function() {
-            if (form.data('ajaxTime')) {
-                return
+        });
+        editor.addMenuItem('cancel', {
+            text: 'Cancel',
+            context: 'edit',
+            onclick: function() {
+                if (form.data('ajaxTime')) {
+                    return
+                }
+                form.find('.cancel').click();
             }
-            form.find('.cancel').click();
-        }
-    });
+        });
+    {% endifequal %}
 }

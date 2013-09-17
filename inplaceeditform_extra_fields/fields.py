@@ -141,8 +141,6 @@ class AdaptorImageThumbnailField(AdaptorImageField):
 
 class AdaptorTinyMCEField(AdaptorTextAreaField):
 
-    #code of: http://dev.merengueproject.org/browser/trunk/merengueproj/merengue/uitools/fields.py?rev=5352#L65
-
     @property
     def name(self):
         return 'tiny'
@@ -166,6 +164,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         if not request.is_ajax():
             config['fieldtypes'] = 'div.mce-content-body'
             config['focuswhenediting'] = "0"
+            config['add_buttons'] = "1"
             if not 'autosavetiny' in config:
                 auto_save = config.get('autoSave', None) or config.get('autosave', None)
                 if auto_save:
@@ -224,3 +223,33 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         context.update(extra_context)
         return super(AdaptorTinyMCEField, self).render_media_field(template_name=template_name,
                                                                    extra_context=context)
+
+
+class AdaptorSimpleTinyMCEField(AdaptorTinyMCEField):
+
+    @property
+    def name(self):
+        return 'tiny_simple'
+
+    @classmethod
+    def get_config(self, request, **kwargs):
+        config = super(AdaptorSimpleTinyMCEField, self).get_config(request, **kwargs)
+        if not request.is_ajax():
+            config['add_buttons'] = str(int(not int(config['autosavetiny'])))
+            if config['add_buttons'] == '0':
+                config['menubar'] = '0'
+        return config
+
+    def get_field(self):
+        field = super(AdaptorTinyMCEField, self).get_field()
+        extra_mce_settings = {'toolbar': False,
+                              'toolbar1': False,
+                              'toolbar2': False,
+                              'toolbar3': False,
+                              'plugins': [],
+                              'menubar': 'edit'}
+        extra_mce_settings.update(getattr(settings, 'INPLACE_EXTRA_SIMPLE_MCE', {}))
+        field.field.widget = self.TinyMCE(extra_mce_settings=extra_mce_settings,
+                                          config=self.config,
+                                          width=None)
+        return field

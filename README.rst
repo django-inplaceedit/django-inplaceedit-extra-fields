@@ -67,6 +67,7 @@ If you want to overwrite the adaptors for all cases in your project:
 ::
 
     ADAPTOR_INPLACEEDIT = {'textarea': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+                           #'textarea': 'inplaceeditform_extra_fields.fields.AdaptorSimpleTinyMCEField',
                            'image': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
                            'fk': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteForeingKeyField',
                            'm2mcomma': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteManyToManyField'}
@@ -78,7 +79,8 @@ If you want, you can register these fields in your settings with different keys:
     ADAPTOR_INPLACEEDIT = {'auto_fk': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteForeingKeyField',
                            'auto_m2m': 'inplaceeditform_extra_fields.fields.AdaptorAutoCompleteManyToManyField',
                            'image_thumb': 'inplaceeditform_extra_fields.fields.AdaptorImageThumbnailField',
-                           'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',}
+                           'tiny': 'inplaceeditform_extra_fields.fields.AdaptorTinyMCEField',
+                           'tiny_simple': 'inplaceeditform_extra_fields.fields.AdaptorSimpleTinyMCEField'}
 
 And after that, to want use a specific adaptor you can pass it to the templatetag, e.g.:
 
@@ -130,12 +132,14 @@ It can help you, configure in your settings:
 For more info, visit the `doc of sorl-thumbnail <http://thumbnail.sorl.net/>`_
 
 
-AdaptorTinyMCEField
-===================
+AdaptorTinyMCEField and AdaptorSimpleTinyMCEField
+=================================================
 
 ::
 
     {% inplace_edit "content.field_name" adaptor="tiny" %}
+    or 
+    {% inplace_edit "content.field_name" adaptor="tiny_simple" %}
 
 
 .. note:: 

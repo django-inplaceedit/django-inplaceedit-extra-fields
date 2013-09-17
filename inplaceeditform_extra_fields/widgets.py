@@ -62,7 +62,7 @@ class TinyMCE(widgets.Textarea):
         self.mce_settings = TinyMCE.mce_settings.copy()
         self.mce_settings['setup'] = ''.join(render_to_string('inplaceeditform_extra_fields/adaptor_tiny/setup.js', config).splitlines())
         self.mce_settings['language'] = getattr(settings, 'TINYMCE_LANG', 'en')
-        if width < 700:
+        if width is not None and width < 700:
             toolbar_items = self.mce_settings['toolbar'].split(' | ')
             if width < 700 and width > 350:
                 toolbar1 = ' | '.join(toolbar_items[:int(len(toolbar_items) / 2)])
