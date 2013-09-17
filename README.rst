@@ -21,7 +21,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.2.1)
+ * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.2.2)
 
 And other packages, depending on which fields you want to use (see below).
 
@@ -140,7 +140,9 @@ AdaptorTinyMCEField
 
 .. note:: 
 
-    We use tinyMCE (version 4.0) without changes, if you want to use another version (4.X) of tinyMCE set INPLACE_TINYMCE_JS in your settings
+    We use tinyMCE 4.0 without changes (from django-inplaceedit-extra-fields==0.3.0), if you want to use another version (4.X) of tinyMCE set INPLACE_TINYMCE_JS in your settings.
+
+    If you want to use a tinyMCE 3.X, please use django-inplaceedit-extra-fields==0.2.1
 
 
 ::
