@@ -25,7 +25,7 @@ from inplaceeditform.fields import (AdaptorForeingKeyField,
                                     AdaptorImageField,
                                     AdaptorTextAreaField)
 
-if sys.version_info.major == 2:
+if sys.version_info[0] == 2:
     string = basestring
 else:
     string = str
