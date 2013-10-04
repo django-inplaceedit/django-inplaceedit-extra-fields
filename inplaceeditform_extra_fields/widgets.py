@@ -84,7 +84,7 @@ class TinyMCE(widgets.Textarea):
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        if sys.version_info.major == 2:
+        if sys.version_info[0] == 2:
             from django.utils.encoding import smart_unicode
             value = smart_unicode(value)
         final_attrs = self.build_attrs(attrs, name=name)
