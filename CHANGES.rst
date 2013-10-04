@@ -1,3 +1,25 @@
+0.4.2  (2013-10-04)
+===================
+
+* Support to python2.6 (this was not supported from django-inplaceedit-extra-fields>=0.0.9 to django-inplaceedit-extra-fields<=0.4.1)
+
+
+0.4.1  (2013-09-17)
+===================
+
+* Improvements in AdaptorSimpleTinyMCEField and AdaptorTinyMCEField
+
+
+0.4.0  (2013-09-17)
+===================
+
+* Add AdaptorSimpleTinyMCEField adaptor
+
+0.3.2  (2013-09-17)
+===================
+
+* Improvements in the README file
+
 0.3.1  (2013-09-17)
 ===================
 
@@ -10,10 +32,10 @@
 * Not the AdaptorTinyMCEField, AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField use the static file recolector, new in django-inplaceedit==1.2.1
 
 
-0.2.3  (2013-09-17)
+0.2.3  (2013-10-04)
 ===================
 
-* Support to python2.6 (this does not work from django-inplaceedit-extra-fields>=0.0.9 to django-inplaceedit-extra-fields<=0.2.3)
+* Support to python2.6 (this was not supported from django-inplaceedit-extra-fields>=0.0.9 to django-inplaceedit-extra-fields<=0.2.3)
 
 
 0.2.3  (2013-09-17)
