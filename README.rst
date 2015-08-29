@@ -21,7 +21,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.2.2)
+ * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.4.0)
 
 And other packages, depending on which fields you want to use (see below).
 
@@ -100,7 +100,7 @@ Why these fields are not in django-inplaceedit?
 AdaptorAutoCompleteForeingKeyField and AdaptorAutoCompleteManyToManyField
 =========================================================================
 
-These fields depend on `django-ajax-selects (1.2.5) <http://pypi.python.org/pypi/django-ajax-selects/1.2.5>`_. You have to create a channel (lookup)
+These fields depend on `django-ajax-selects (1.3.6) <http://pypi.python.org/pypi/django-ajax-selects/1.3.6>`_. You have to create a channel (lookup)
 
 ::
 
@@ -116,7 +116,7 @@ It is recomended you overwrite the following templates:
 AdaptorImageThumbnailField
 ==========================
 
-This field depends on `sorl-thumbnail (11.12) <http://pypi.python.org/pypi/sorl-thumbnail/11.12>`_. You just need to specify the thumb size.
+This field depends on `sorl-thumbnail (12.3) <http://pypi.python.org/pypi/sorl-thumbnail/12.3>`_. You just need to specify the thumb size.
 
 ::
 

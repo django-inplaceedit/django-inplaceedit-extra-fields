@@ -20,13 +20,17 @@ from django.forms import widgets
 from django.forms.util import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.simplejson import JSONEncoder
+
+try:
+    from django.utils.simplejson import JSONEncoder
+except ImportError:
+    from json import JSONEncoder
 
 
 def get_tinyMCE_js():
     return getattr(settings,
                    'INPLACE_TINYMCE_JS',
-                   '//tinymce.cachefly.net/4.0/tinymce.min.js')
+                   '//tinymce.cachefly.net/4.2/tinymce.min.js')
 
 
 class TinyMCE(widgets.Textarea):

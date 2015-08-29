@@ -54,11 +54,18 @@ class AdaptorAutoCompleteProvider(object):
             field.field = auto_field(lookup, required=field.field.required)
         return field
 
+    def get_static_url(self):
+        subfix = 'ajax_select'
+        url = get_static_url(subfix)
+        if subfix not in url:
+            url += 'ajax_select/'
+        return url
+
     def render_media_field(self,
                            template_name="inplaceeditform_extra_fields/adaptor_autocomplete/render_media_field.html",
                            extra_context=None):
         if self.install_ajax_select():
-            extra_context = {'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')}
+            extra_context = {'STATIC_URL_AJAX_SELECTS': self.get_static_url()}
             return super(AdaptorAutoCompleteProvider, self).render_media_field(template_name, extra_context)
         return super(AdaptorAutoCompleteProvider, self).render_media_field()
 
@@ -70,14 +77,14 @@ class AdaptorAutoCompleteProvider(object):
                 if getattr(self.request, 'inplace_js_extra', None) is None:
                     self.request.inplace_js_extra = ''
                 scripts = render_to_string("inplaceeditform_extra_fields/adaptor_autocomplete/render_js.html",
-                                           {'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')})
-                if not scripts in self.request.inplace_js_extra:
+                                           {'STATIC_URL_AJAX_SELECTS': self.get_static_url()})
+                if scripts not in self.request.inplace_js_extra:
                     self.request.inplace_js_extra += scripts
                 return value
             return render_to_string('inplaceeditform_extra_fields/adaptor_autocomplete/render_value_edit.html',
                                     {'value': value,
                                      'STATIC_URL': get_static_url(),
-                                     'STATIC_URL_AJAX_SELECTS': get_static_url('ajax_selects')})
+                                     'STATIC_URL_AJAX_SELECTS': self.get_static_url()})
         return super(AdaptorAutoCompleteProvider, self).render_value_edit()
 
 
@@ -163,13 +170,13 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
         config = super(AdaptorTinyMCEField, self).get_config(request, **kwargs)
         if not request.is_ajax():
             config['can_auto_save'] = '0'
-            if not 'menubar_item' in config:
+            if 'menubar_item' not in config:
                 config['menubar_item'] = 'edit'
-            if not 'fieldtypes' in config:
+            if 'fieldtypes' not in config:
                 config['fieldtypes'] = 'div.mce-content-body'
-            if not 'focuswhenediting' in config:
+            if 'focuswhenediting' not in config:
                 config['focuswhenediting'] = "0"
-            if not 'add_buttons' in config:
+            if 'add_buttons' not in config:
                 config['add_buttons'] = "1"
             auto_save = config.get('autoSave', None) or config.get('autosave', None)
             if auto_save:
@@ -207,7 +214,7 @@ class AdaptorTinyMCEField(AdaptorTextAreaField):
             if getattr(self.request, 'inplace_js_extra', None) is None:
                 self.request.inplace_js_extra = ''
             scripts = ''.join(field.field.widget.media.render_js())
-            if not scripts in self.request.inplace_js_extra:
+            if scripts not in self.request.inplace_js_extra:
                 self.request.inplace_js_extra += scripts
             return value
         return render_to_string('inplaceeditform_extra_fields/adaptor_tiny/render_value_edit.html',
@@ -242,7 +249,7 @@ class AdaptorSimpleTinyMCEField(AdaptorTinyMCEField):
         if not request.is_ajax():
             if not init_add_buttons:
                 config['add_buttons'] = str(int(not int(config['autosave'])))
-            if config['add_buttons'] == '0' and not 'menubar' in config:
+            if config['add_buttons'] == '0' and 'menubar' not in config:
                 config['menubar'] = '0'
         return config
 

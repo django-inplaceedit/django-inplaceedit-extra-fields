@@ -1,3 +1,14 @@
+0.6.0  (2015-??-??)
+===================
+
+* Django 1.7 and Django 1.8 suport
+* Python 3 support for every adaptor
+* Upgrade tinyMCE version
+* Upgrade django-ajax-select version
+* Upgrade jQuery-ui version (used in AdaptorAutoCompleteForeingKeyField AdaptorAutoCompleteManyToManyField)
+* Upgrade sorl-thumbnail
+
+
 0.5.0  (2013-10-04)
 ===================
 

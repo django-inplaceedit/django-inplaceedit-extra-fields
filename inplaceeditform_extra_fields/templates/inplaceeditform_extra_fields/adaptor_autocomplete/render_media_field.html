@@ -1,6 +1,13 @@
 {% extends "inplaceeditform/render_media_field.html" %}
 
 {% block media %}
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function () {
+                $(window).unbind('init-autocomplete');
+        });
+        })(jQuery);
+    </script>
     {{ block.super }}
     {% include "inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html"%}
     <link href="{{ STATIC_URL_AJAX_SELECTS }}css/ajax_select.css" rel="stylesheet" type="text/css" href="style.css" media="all" />
