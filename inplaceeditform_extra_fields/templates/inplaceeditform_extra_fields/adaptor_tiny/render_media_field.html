@@ -14,7 +14,7 @@
                     editor = $(button).data("editor");
                     if (editor) {
                         $("#" + editor.theme.panel._id).remove();
-                        $("[role=menu]").remove();
+                        $(".mce-container-body[role=menu]").remove();
                     }
                 }
                 $(".applyTinyMCE").data("getValue", tinyGetValue);
