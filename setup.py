@@ -23,7 +23,7 @@ def read(*rnames):
 
 setup(
     name="django-inplaceedit-extra-fields",
-    version="0.5.0",
+    version="0.6.0",
     author="Pablo Martin",
     author_email="goinnn@gmail.com",
     description="Django application that adds other useful fields to Django inplace edit",
@@ -37,7 +37,7 @@ setup(
     ],
     license="LGPL 3",
     keywords="django,inplace,inline edit,inline form,inline,inplace edit,inplace form,ajax,tinymce,autocomplete,thumbnail",
-    url='https://github.com/goinnn/django-inplaceedit-extra-fields',
+    url='https://github.com/django-inplaceedit/django-inplaceedit-extra-fields',
     packages=('inplaceeditform_extra_fields', ),
     include_package_data=True,
     zip_safe=False,

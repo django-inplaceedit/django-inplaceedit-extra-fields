@@ -162,7 +162,7 @@ You can test it with the `testing project of django-inplaceedit <https://github.
 Development
 ===========
 
-You can get the leading edge version of django-inplaceedit-extra-fields by doing a clone
+You can get the bleeding edge version of django-inplaceedit-extra-fields by doing a clone
 of its repository::
 
   git clone git@github.com:django-inplaceedit/django-inplaceedit-extra-fields.git
