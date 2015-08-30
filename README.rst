@@ -19,7 +19,7 @@ License <http://www.gnu.org/licenses/lgpl.html>`_.
 Requirements
 ============
 
- * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.4.0)
+ * `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ (>= 1.4.1)
 
 And other packages, depending on which fields you want to use (see below).
 
