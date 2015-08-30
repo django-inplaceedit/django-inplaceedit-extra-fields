@@ -10,8 +10,6 @@ Information
 .. image:: https://badge.fury.io/py/django-inplaceedit-extra-fields.png
     :target: https://badge.fury.io/py/django-inplaceedit-extra-fields
 
-.. image:: https://pypip.in/d/django-inplaceedit-extra-fields/badge.png
-    :target: https://pypi.python.org/pypi/django-inplaceedit-extra-fields
 
 django-inplaceedit-extra-fields is a Django application that adds other useful fields to `django-inplaceedit <http://pypi.python.org/pypi/django-inplaceedit/>`_ .
 
@@ -110,8 +108,8 @@ For more info, visit the `doc of django-ajax-selects <https://github.com/twidi/d
 
 It is recomended you overwrite the following templates:
 
- * `inc.css_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html>`_
- * `inc.js_library.html <http://github.com/goinnn/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html>`_
+ * `inc.css_library.html <http://github.com/django-inplaceedit/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.css_library.html>`_
+ * `inc.js_library.html <http://github.com/django-inplaceedit/django-inplaceedit-extra-fields/blob/master/inplaceeditform_extra_fields/templates/inplaceeditform_extra_fields/adaptor_autocomplete/inc.js_library.html>`_
 
 AdaptorImageThumbnailField
 ==========================
@@ -158,7 +156,7 @@ If you want to use a tinyMCE 3.X, please use `django-inplaceedit-extra-fields==0
 Testing
 =======
 
-You can test it with the `testing project of django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit/tree/master/testing>`_ or with the `testing project of django-inplaceedit-bootstrap <https://github.com/goinnn/django-inplaceedit-bootstrap/tree/master/testing>`_ 
+You can test it with the `testing project of django-inplaceedit <https://github.com/Yaco-Sistemas/django-inplaceedit/tree/master/testing>`_ or with the `testing project of django-inplaceedit-bootstrap <https://github.com/django-inplaceedit/django-inplaceedit-bootstrap/tree/master/testing>`_ 
 
 
 Development
@@ -167,5 +165,5 @@ Development
 You can get the leading edge version of django-inplaceedit-extra-fields by doing a clone
 of its repository::
 
-  git clone git@github.com:goinnn/django-inplaceedit-extra-fields.git
+  git clone git@github.com:django-inplaceedit/django-inplaceedit-extra-fields.git
 
