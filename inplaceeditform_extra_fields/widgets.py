@@ -17,7 +17,10 @@ import sys
 
 from django.conf import settings
 from django.forms import widgets
-from django.forms.util import flatatt
+try:
+    from django.forms.utils import flatatt
+except ImportError:
+    from django.forms.util import flatatt
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 
