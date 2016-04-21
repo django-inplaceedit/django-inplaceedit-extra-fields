@@ -1,7 +1,7 @@
 0.7.0  (2016-04-21)
 ===================
 
-* Django 1.9 suport
+* Django 1.9 suport: Thanks to `Paul Stenius <https://github.com/stenius/>`_
 
 0.6.1  (2015-08-30)
 ===================
