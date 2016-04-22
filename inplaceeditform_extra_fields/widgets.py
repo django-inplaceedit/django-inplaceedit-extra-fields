@@ -33,7 +33,7 @@ except ImportError:
 def get_tinyMCE_js():
     return getattr(settings,
                    'INPLACE_TINYMCE_JS',
-                   '//tinymce.cachefly.net/4.2/tinymce.min.js')
+                   '//cdn.tinymce.com/4/tinymce.min.js')
 
 
 class TinyMCE(widgets.Textarea):
